@@ -1,0 +1,23 @@
+---
+#Basic
+- import_playbook: ../tasks/basic/ssh.yml
+
+#Docker
+- import_playbook: ../tasks/docker/docker.yml
+- import_playbook: ../tasks/docker/duplicati.yml
+
+- hosts: all
+  tasks:
+    - ansible.builtin.pause:
+        prompt: "Press Enter when finished to continue ..."
+
+- import_playbook: ../tasks/docker/mariadb.yml
+- import_playbook: ../tasks/docker/portainer.yml
+- import_playbook: ../tasks/docker/homepage.yml
+- import_playbook: ../tasks/docker/vaultwarden.yml
+- import_playbook: ../tasks/docker/uptime-kuma.yml
+- import_playbook: ../tasks/docker/webdav.yml
+- import_playbook: ../tasks/docker/duplicati-dashboard.yml
+
+#Tailscale
+- import_playbook: ../tasks/basic/tailscale.yml

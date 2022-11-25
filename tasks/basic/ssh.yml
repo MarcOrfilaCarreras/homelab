@@ -1,0 +1,122 @@
+---
+- hosts: ssh
+  become: yes
+  ignore_unreachable: true
+
+  tasks:
+    - include_vars: ../../vars/vars.json
+
+    - name: Create new user
+      ansible.builtin.user:
+        name: "{{ ssh_name }}"
+        shell: /bin/bash
+        password: "{{ ssh_password }}" #openssl passwd
+        groups: sudo
+        state: present
+
+    - name: Secure SSH - change port
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "#Port 22"
+        line: "Port 717"
+        state: present
+        backup: yes
+
+    - name: Secure SSH - deny root login
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "PermitRootLogin yes"
+        line: "PermitRootLogin no"
+        state: present
+        backup: yes
+
+    - name: Secure SSH - idle timeout
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "#ClientAliveInterval 0"
+        line: "ClientAliveInterval 360"
+        state: present
+        backup: yes
+
+    - name: Secure SSH - count max
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "#ClientAliveCountMax 3"
+        line: "ClientAliveCountMax 0"
+        state: present
+        backup: yes
+
+    - name: Secure SSH - disable empty passwords
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "#PermitEmptyPasswords no"
+        line: "PermitEmptyPasswords no"
+        state: present
+        backup: yes
+
+    - name: Secure SSH - protocol version
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        line: "Protocol 2"
+
+    - name: Secure SSH - disable X11 Forwarding
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "X11Forwarding yes"
+        line: "X11Forwarding no"
+        state: present
+        backup: yes
+
+    - name: Secure SSH - ensable key authentication
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "#PubkeyAuthentication yes"
+        line: "PubkeyAuthentication yes"
+        state: present
+        backup: yes
+
+    - name: Secure SSH - disable password authentication
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "PasswordAuthentication yes"
+        line: "PasswordAuthentication no"
+        state: present
+        backup: yes
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        owner: "{{ ssh_name }}"
+        group: "{{ ssh_name }}"
+        path: /home/{{ ssh_name }}/.ssh
+        state: directory
+        mode: '0700'
+
+    - name: Copy SSH public key
+      copy:
+        src: "{{ ssh_pub_key }}"
+        dest: /home/{{ ssh_name }}/.ssh/authorized_keys
+        remote_src: no
+
+    - name: Don't ask for password
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        line: "{{ ssh_name }} ALL=(ALL) NOPASSWD: ALL"
+
+    - name: Ensure that the directory exists
+      file:
+        path: "/etc/systemd/system/ssh.socket.d"
+        state: directory
+
+    - name: Override ssh.socket config
+      copy:
+        dest: "/etc/systemd/system/ssh.socket.d/port.conf"
+        content: |
+          [Socket]
+          ListenStream=
+          ListenStream=717
+    
+    - name: Restart SSH service
+      ansible.builtin.systemd:
+        state: restarted
+        daemon_reload: yes
+        name: ssh

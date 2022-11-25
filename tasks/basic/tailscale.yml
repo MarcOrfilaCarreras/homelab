@@ -1,0 +1,25 @@
+---
+- hosts: docker
+  become: yes
+  
+  tasks:
+    - name: Get the GPG key
+      ansible.builtin.get_url:
+        url: "{{ tailscale_gpg }}"
+        dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+        mode: '0644'
+        force: true
+
+    - name: Get the list
+      ansible.builtin.get_url:
+        url: "{{ tailscale_list }}"
+        dest: /etc/apt/sources.list.d/tailscale.list
+        mode: '0644'
+        force: true
+
+    - name: Install tailscale
+      ansible.builtin.package:
+        name:
+          - tailscale
+        state: latest
+        update_cache: yes

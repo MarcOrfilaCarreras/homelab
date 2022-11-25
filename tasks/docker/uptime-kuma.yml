@@ -1,0 +1,23 @@
+---
+- hosts: docker
+  become: yes
+
+  tasks:
+    - include_vars: ../../vars/vars.json
+
+    - name: Deploy Uptime Kuma
+      community.docker.docker_container:
+        name: uptime-kuma
+        recreate: yes
+        image: louislam/uptime-kuma:latest
+        ports:
+          - "9004:3001"
+        volumes:
+          - /opt/docker/uptime-kuma/data:/app/data
+          - /var/run/docker.sock:/var/run/docker.sock
+        restart_policy: always
+        labels:
+          homepage.group: Management
+          homepage.name: Uptime Kuma
+          homepage.href: http://{{ homepage_domain }}:9004
+          homepage.description: Monitoring software

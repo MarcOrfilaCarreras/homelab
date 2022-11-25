@@ -1,0 +1,6 @@
+inventory/hosts.json
+vars/vars.json
+hosts.json
+vars.json
+.dccache
+cloudflared.yml

@@ -1,0 +1,15 @@
+---
+#Basic
+- import_playbook: ../tasks/basic/ssh.yml
+
+#Docker
+- import_playbook: ../tasks/docker/docker.yml
+- import_playbook: ../tasks/docker/duplicati.yml
+
+- hosts: all
+  tasks:
+    - ansible.builtin.pause:
+        prompt: "Press Enter when finished to continue ..."
+
+- import_playbook: ../tasks/docker/mariadb.yml
+- import_playbook: ../tasks/docker/portainer.yml
