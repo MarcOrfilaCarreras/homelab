@@ -1,0 +1,25 @@
+---
+- hosts: docker
+  become: yes
+
+  tasks:
+    - include_vars: ../vars/main.json
+
+    - name: Deploy Web Dav server
+      community.docker.docker_container:
+        name: webdav
+        recreate: yes
+        image: derkades/webdav
+        ports:
+          - "9008:80"
+        env:
+          USERNAME: "{{ webdav_user }}"
+          PASSWORD: "{{ webdav_password }}"
+        volumes:
+          - /opt/docker/webdav:/data
+        restart_policy: always
+        labels:
+          homepage.group: Services
+          homepage.name: WebDAV
+          homepage.href: https://webdav.{{ homepage_domain }}
+          homepage.description: Remote folder

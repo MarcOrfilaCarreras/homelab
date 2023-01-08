@@ -1,0 +1,36 @@
+---
+- hosts: docker
+  become: yes
+  
+  tasks:
+    - include_vars: ../vars/main.json
+
+    - name: Create user and database
+      community.docker.docker_container_exec:
+        container: mariadb
+        command: mysql -u {{ mariadb_user }} --password={{ mariadb_user_password }} --execute="CREATE USER IF NOT EXISTS '{{ duplicati_dashboard_user }}'@'%' IDENTIFIED BY '{{ duplicati_dashboard_password }}';GRANT USAGE ON *.* TO '{{ duplicati_dashboard_user }}'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;CREATE DATABASE IF NOT EXISTS {{ duplicati_dashboard_user }};GRANT ALL PRIVILEGES ON {{ duplicati_dashboard_user }}.* TO '{{ duplicati_dashboard_user }}'@'%';"
+
+    - name: Deploy Backend
+      community.docker.docker_container:
+        name: duplicati_dashboard_backend
+        recreate: yes
+        image: ghcr.io/marcorfilacarreras/duplicati-dashboard:backend
+        ports:
+          - "9006:80"
+        restart_policy: always
+    
+    - name: Deploy Frontend
+      community.docker.docker_container:
+        name: duplicati_dashboard_frontend
+        recreate: yes
+        image: ghcr.io/marcorfilacarreras/duplicati-dashboard:frontend
+        ports:
+          - "9007:80"
+        links:
+          duplicati_dashboard_backend:duplicati_dashboard_backend
+        restart_policy: always
+        labels:
+          homepage.group: Management
+          homepage.name: Duplicati Dashboard
+          homepage.href: https://duplicati-dashboard-web.{{ homepage_domain }}
+          homepage.description: Dashboard for Duplicati

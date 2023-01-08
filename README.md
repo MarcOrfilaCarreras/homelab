@@ -63,9 +63,9 @@ This repository contains all my Ansible playbooks I use to setup my personal hom
         <td>Web application to manage MySQL databases</td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/uptime-kuma.png" style="height: 25px"/></td>
-        <td>Uptime Kuma</td>
-        <td>Monitoring tool</td>
+        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/pihole.png" style="height: 25px"/></td>
+        <td>Pi-Hole</td>
+        <td>DNS server</td>
     </tr>
     <tr>
         <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/vaultwarden.png" style="height: 25px"/></td>
@@ -92,13 +92,6 @@ This repository contains all my Ansible playbooks I use to setup my personal hom
 And more on the way ...
 
 <br>
-
-<details close>
-<summary>Do you want to see my homelab? Just click here.</summary>
-<br>
-
-![plot](./.github/img/Homelab.png)
-</details>
 
 ## License
 

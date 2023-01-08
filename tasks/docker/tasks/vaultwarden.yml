@@ -1,0 +1,31 @@
+---
+- hosts: docker
+  become: yes
+
+  tasks:
+    - include_vars: ../vars/main.json
+
+    - name: Create user and database
+      community.docker.docker_container_exec:
+        container: mariadb
+        command: mysql -u {{ mariadb_user }} --password={{ mariadb_user_password }} --execute="CREATE USER IF NOT EXISTS '{{ vaultwarden_user }}'@'%' IDENTIFIED BY '{{ vaultwarden_password }}';GRANT USAGE ON *.* TO '{{ vaultwarden_user }}'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;CREATE DATABASE IF NOT EXISTS {{ vaultwarden_user }};GRANT ALL PRIVILEGES ON {{ vaultwarden_user }}.* TO '{{ vaultwarden_user }}'@'%';"
+      
+    - name: Deploy Vaultwarden
+      community.docker.docker_container:
+        name: vaultwarden
+        recreate: yes
+        image: vaultwarden/server:latest
+        ports:
+          - "9005:80"
+        links:
+          - "mariadb:db"
+        env:
+          DATABASE_URL: "mysql://{{ vaultwarden_user }}:{{ vaultwarden_password }}@db/{{ vaultwarden_user }}"
+        volumes:
+          - /opt/docker/vaultwarden/data:/data
+        restart_policy: always
+        labels:
+          homepage.group: Services
+          homepage.name: Vaultwarden
+          homepage.href: https://vaultwarden.{{ homepage_domain }}
+          homepage.description: Password vault

@@ -1,23 +1,25 @@
 ---
 #Basic
-- import_playbook: ../tasks/basic/ssh.yml
+#- import_playbook: ../tasks/basic/ssh/tasks/install.yml
+#- import_playbook: ../tasks/basic/tailscale/tasks/install.yml
+#- import_playbook: ../tasks/basic/caddy/tasks/install.yml
 
 #Docker
-- import_playbook: ../tasks/docker/docker.yml
-- import_playbook: ../tasks/docker/duplicati.yml
+#- import_playbook: ../tasks/docker/tasks/install.yml
+- import_playbook: ../tasks/docker/tasks/duplicati.yml
 
 - hosts: all
   tasks:
     - ansible.builtin.pause:
         prompt: "Press Enter when finished to continue ..."
 
-- import_playbook: ../tasks/docker/mariadb.yml
-- import_playbook: ../tasks/docker/portainer.yml
-- import_playbook: ../tasks/docker/homepage.yml
-- import_playbook: ../tasks/docker/vaultwarden.yml
-- import_playbook: ../tasks/docker/uptime-kuma.yml
-- import_playbook: ../tasks/docker/webdav.yml
-- import_playbook: ../tasks/docker/duplicati-dashboard.yml
+- import_playbook: ../tasks/docker/tasks/mariadb.yml
+- import_playbook: ../tasks/docker/tasks/portainer.yml
+- import_playbook: ../tasks/docker/tasks/homepage.yml
+- import_playbook: ../tasks/docker/tasks/vaultwarden.yml
+- import_playbook: ../tasks/docker/tasks/pihole.yml
+- import_playbook: ../tasks/docker/tasks/webdav.yml
+- import_playbook: ../tasks/docker/tasks/duplicati-dashboard.yml
 
-#Tailscale
-- import_playbook: ../tasks/basic/tailscale.yml
+#Commands
+# mount /dev/sdb1 /opt/backups/ - To mount the disk

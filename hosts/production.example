@@ -1,0 +1,34 @@
+{
+  "all": {
+    "children": {
+      "ssh": {
+        "hosts": {
+          "ssh1": {
+            "ansible_port":"22",
+            "ansible_host": "192.168.1.10"
+          }
+        }
+      },
+      "tailscale": {
+        "hosts": {
+          "tailscale1": {
+            "ansible_host": "192.168.1.10"
+          }
+        },
+        "vars": {
+          "ansible_become": true
+      }
+      },
+      "docker": {
+          "hosts": {
+            "docker1": {
+              "ansible_host": "192.168.1.10"
+            }
+          },
+          "vars": {
+            "ansible_become": true
+        }
+      }
+    }
+  }
+}

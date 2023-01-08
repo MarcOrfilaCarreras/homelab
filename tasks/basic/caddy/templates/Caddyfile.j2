@@ -1,0 +1,87 @@
+{
+        auto_https disable_redirects
+        acme_ca https://api.buypass.com/acme/directory
+        email {{ email }}
+        acme_dns cloudflare {{ token }}
+}
+
+http://portainer.{{ domain }} {
+        redir https://portainer.{{ domain }}{uri}
+}
+
+https://portainer.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 10.0.0.10:9000
+}
+
+http://homepage.{{ domain }} {
+        redir https://homepage.{{ domain }}{uri}
+}
+
+https://homepage.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 10.0.0.10:9001
+}
+
+http://duplicati.{{ domain }} {
+        redir https://duplicati.{{ domain }}{uri}
+}
+
+https://duplicati.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 10.0.0.10:9002
+}
+
+http://phpmyadmin.{{ domain }} {
+        redir https://phpmyadmin.{{ domain }}{uri}
+}
+
+https://phpmyadmin.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 10.0.0.10:9003
+}
+
+http://pihole.{{ domain }} {
+        redir https://pihole.{{ domain }}{uri}
+}
+
+https://pihole.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 10.0.0.10:9004
+}
+
+http://vaultwarden.{{ domain }} {
+        redir https://vaultwarden.{{ domain }}{uri}
+}
+
+https://vaultwarden.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 10.0.0.10:9005
+}
+
+http://duplicati-dashboard-api.{{ domain }} {
+        redir https://duplicati-dashboard-api.{{ domain }}{uri}
+}
+
+https://duplicati-dashboard-api.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 10.0.0.10:9006
+}
+
+http://duplicati-dashboard-web.{{ domain }} {
+        redir https://duplicati-dashboard-web.{{ domain }}{uri}
+}
+
+https://duplicati-dashboard-web.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 10.0.0.10:9007
+}
+
+http://webdav.{{ domain }} {
+        redir https://webdav.{{ domain }}{uri}
+}
+
+https://webdav.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 10.0.0.10:9008
+}
