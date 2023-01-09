@@ -13,7 +13,7 @@
           ports:
             - "53:53/tcp"
             - "53:53/udp"
-            - "9004:80/tcp"
+            - "127.0.0.1:9004:80/tcp"
           volumes:
             - /opt/docker/pihole/config:/etc/pihole
             - /opt/docker/pihole/dnsmasq:/etc/dnsmasq.d

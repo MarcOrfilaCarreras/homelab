@@ -11,7 +11,7 @@
         recreate: yes
         image: duplicati/duplicati:latest
         ports:
-          - "9002:8200"
+          - "127.0.0.1:9002:8200"
         volumes:
           - /opt/docker/duplicati/config:/config
           - /opt/backups:/backups

@@ -9,7 +9,7 @@
         recreate: yes
         image: ghcr.io/benphelps/homepage:latest
         ports:
-          - "9001:3000"
+          - "127.0.0.1:9001:3000"
         volumes:
           - /opt/docker/homepage/config:/app/config
           - /var/run/docker.sock:/var/run/docker.sock

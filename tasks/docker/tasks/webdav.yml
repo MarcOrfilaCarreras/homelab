@@ -11,7 +11,7 @@
         recreate: yes
         image: derkades/webdav
         ports:
-          - "9008:80"
+          - "127.0.0.1:9008:80"
         env:
           USERNAME: "{{ webdav_user }}"
           PASSWORD: "{{ webdav_password }}"

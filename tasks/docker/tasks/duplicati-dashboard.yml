@@ -16,7 +16,7 @@
         recreate: yes
         image: ghcr.io/marcorfilacarreras/duplicati-dashboard:backend
         ports:
-          - "9006:80"
+          - "127.0.0.1:9006:80"
         restart_policy: always
     
     - name: Deploy Frontend
@@ -25,7 +25,7 @@
         recreate: yes
         image: ghcr.io/marcorfilacarreras/duplicati-dashboard:frontend
         ports:
-          - "9007:80"
+          - "127.0.0.1:9007:80"
         links:
           duplicati_dashboard_backend:duplicati_dashboard_backend
         restart_policy: always

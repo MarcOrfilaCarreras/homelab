@@ -16,7 +16,7 @@
         recreate: yes
         image: vaultwarden/server:latest
         ports:
-          - "9005:80"
+          - "127.0.0.1:9005:80"
         links:
           - "mariadb:db"
         env:
