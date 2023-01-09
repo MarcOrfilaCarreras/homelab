@@ -11,7 +11,7 @@ http://portainer.{{ domain }} {
 
 https://portainer.{{ domain }} {
         ## reverse proxy
-        reverse_proxy 10.0.0.10:9000
+        reverse_proxy 127.0.0.1:9000
 }
 
 http://homepage.{{ domain }} {
@@ -20,7 +20,7 @@ http://homepage.{{ domain }} {
 
 https://homepage.{{ domain }} {
         ## reverse proxy
-        reverse_proxy 10.0.0.10:9001
+        reverse_proxy 127.0.0.1:9001
 }
 
 http://duplicati.{{ domain }} {
@@ -29,7 +29,7 @@ http://duplicati.{{ domain }} {
 
 https://duplicati.{{ domain }} {
         ## reverse proxy
-        reverse_proxy 10.0.0.10:9002
+        reverse_proxy 127.0.0.1:9002
 }
 
 http://phpmyadmin.{{ domain }} {
@@ -38,7 +38,7 @@ http://phpmyadmin.{{ domain }} {
 
 https://phpmyadmin.{{ domain }} {
         ## reverse proxy
-        reverse_proxy 10.0.0.10:9003
+        reverse_proxy 127.0.0.1:9003
 }
 
 http://pihole.{{ domain }} {
@@ -46,8 +46,10 @@ http://pihole.{{ domain }} {
 }
 
 https://pihole.{{ domain }} {
+        redir / /admin
+
         ## reverse proxy
-        reverse_proxy 10.0.0.10:9004
+        reverse_proxy 127.0.0.1:9004
 }
 
 http://vaultwarden.{{ domain }} {
@@ -56,7 +58,7 @@ http://vaultwarden.{{ domain }} {
 
 https://vaultwarden.{{ domain }} {
         ## reverse proxy
-        reverse_proxy 10.0.0.10:9005
+        reverse_proxy 127.0.0.1:9005
 }
 
 http://duplicati-dashboard-api.{{ domain }} {
@@ -65,7 +67,7 @@ http://duplicati-dashboard-api.{{ domain }} {
 
 https://duplicati-dashboard-api.{{ domain }} {
         ## reverse proxy
-        reverse_proxy 10.0.0.10:9006
+        reverse_proxy 127.0.0.1:9006
 }
 
 http://duplicati-dashboard-web.{{ domain }} {
@@ -74,7 +76,7 @@ http://duplicati-dashboard-web.{{ domain }} {
 
 https://duplicati-dashboard-web.{{ domain }} {
         ## reverse proxy
-        reverse_proxy 10.0.0.10:9007
+        reverse_proxy 127.0.0.1:9007
 }
 
 http://webdav.{{ domain }} {
@@ -83,5 +85,5 @@ http://webdav.{{ domain }} {
 
 https://webdav.{{ domain }} {
         ## reverse proxy
-        reverse_proxy 10.0.0.10:9008
+        reverse_proxy 127.0.0.1:9008
 }
