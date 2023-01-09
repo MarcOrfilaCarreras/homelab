@@ -73,11 +73,6 @@ This repository contains all my Ansible playbooks I use to setup my personal hom
         <td>Password manager</td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/tailscale.png" style="height: 25px"/></td>
-        <td>Headscale</td>
-        <td>VPN service</td>
-    </tr>
-    <tr>
         <td><img src="" style="height: 25px"/></td>
         <td>Duplicati Dahsboard</td>
         <td>Backup monitoring tool for Duplicati</td>
