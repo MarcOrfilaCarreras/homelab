@@ -1,0 +1,14 @@
+---
+- hosts: docker
+  become: true
+
+  tasks:
+    - name: Reset UFW
+      community.general.ufw:
+        state: reset
+
+    - name: Uninstall UFW
+      ansible.builtin.package:
+        name:
+          - ufw
+        state: absent
