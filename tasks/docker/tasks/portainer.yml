@@ -20,5 +20,6 @@
         labels:
           homepage.group: Management
           homepage.name: Portainer
-          homepage.href: https://portainer{{ homepage_domain }}
+          homepage.href: https://portainer.{{ homepage_domain }}
           homepage.description: Docker interface
+          com.centurylinklabs.watchtower.enable: "true"

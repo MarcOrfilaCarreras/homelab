@@ -18,6 +18,8 @@
         ports:
           - "127.0.0.1:9006:80"
         restart_policy: always
+        labels:
+            com.centurylinklabs.watchtower.enable: "true"
     
     - name: Deploy Frontend
       community.docker.docker_container:
@@ -34,3 +36,4 @@
           homepage.name: Duplicati Dashboard
           homepage.href: https://duplicati-dashboard-web.{{ homepage_domain }}
           homepage.description: Dashboard for Duplicati
+          com.centurylinklabs.watchtower.enable: "true"

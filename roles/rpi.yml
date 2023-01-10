@@ -1,11 +1,11 @@
 ---
 #Basic
-#- import_playbook: ../tasks/basic/ssh/tasks/install.yml
-#- import_playbook: ../tasks/basic/tailscale/tasks/install.yml
-#- import_playbook: ../tasks/basic/caddy/tasks/install.yml
+- import_playbook: ../tasks/basic/ssh/tasks/install.yml
+- import_playbook: ../tasks/basic/tailscale/tasks/install.yml
+- import_playbook: ../tasks/basic/caddy/tasks/install.yml
 
 #Docker
-#- import_playbook: ../tasks/docker/tasks/install.yml
+- import_playbook: ../tasks/docker/tasks/install.yml
 - import_playbook: ../tasks/docker/tasks/duplicati.yml
 
 - hosts: all
@@ -13,6 +13,7 @@
     - ansible.builtin.pause:
         prompt: "Press Enter when finished to continue ..."
 
+- import_playbook: ../tasks/docker/tasks/watchtower.yml
 - import_playbook: ../tasks/docker/tasks/mariadb.yml
 - import_playbook: ../tasks/docker/tasks/portainer.yml
 - import_playbook: ../tasks/docker/tasks/homepage.yml

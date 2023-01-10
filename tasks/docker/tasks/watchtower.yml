@@ -1,0 +1,19 @@
+---
+- hosts: docker
+  become: true
+
+  tasks:
+    - name: Deploy Watchtower
+      community.docker.docker_container:
+          name: watchtower
+          recreate: yes
+          image: containrrr/watchtower
+          volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+          env:
+            TZ: "Europe/Madrid"
+            WATCHTOWER_CLEANUP: "true"
+            WATCHTOWER_LABEL_ENABLE: "true"
+          restart_policy: always
+          labels:
+            com.centurylinklabs.watchtower.enable: "true"
