@@ -1,0 +1,66 @@
+---
+- hosts: docker
+  become: yes
+
+  tasks:
+
+    - include_vars: ../vars/main.json
+
+    - include_vars: ../vars/rpi(bullseye).json
+      when: ansible_architecture == "aarch64" and ansible_distribution == "Debian"
+
+    - include_vars: ../vars/x86(jammy).json
+      when: ansible_architecture == "x86_64" and ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "22"
+
+    - name: Download the binary
+      get_url:
+        url: "{{ url }}"
+        dest: "/usr/local/bin/caddy"
+        force: yes
+
+    - name: Add permissions
+      file:
+        dest: /usr/local/bin/caddy
+        mode: a+x
+
+    - name: Set capabilities
+      capabilities:
+          path: /usr/local/bin/caddy
+          capability: cap_net_bind_service+ep
+          state: present
+
+    - name: Create etc directory
+      file:
+          path: /etc/caddy
+          state: directory
+          owner: root
+          group: root
+
+    - name: Create ssl directory
+      file:
+          path: /etc/ssl/caddy
+          state: directory
+          owner: root
+          group: root
+          mode: 0770
+
+    - name: Create systemd service
+      template:
+          src: ../templates/caddy.service.j2
+          dest: /lib/systemd/system/caddy.service
+          owner: root
+          group: root
+
+    - name: Create Caddyfile file
+      ansible.builtin.template:
+        src: ../templates/Caddyfile.j2
+        dest: /etc/caddy/Caddyfile
+        owner: root
+        group: root
+        mode: '0774'
+
+    - name: Restart the service
+      ansible.builtin.service:
+        name: caddy
+        state: restarted
+        enabled: yes

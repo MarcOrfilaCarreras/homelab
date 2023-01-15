@@ -1,0 +1,26 @@
+---
+- hosts: docker
+  become: yes
+
+  tasks:
+
+    - include_vars: ../vars/main.json
+
+    - name: Remove file
+      ansible.builtin.file:
+        path: /etc/caddy/Caddyfile
+        state: absent
+
+    - name: Create Caddyfile file
+      ansible.builtin.template:
+        src: ../templates/Caddyfile.j2
+        dest: /etc/caddy/Caddyfile
+        owner: root
+        group: root
+        mode: '0774'
+
+    - name: Restart the service
+      ansible.builtin.service:
+        name: caddy
+        state: restarted
+        enabled: yes

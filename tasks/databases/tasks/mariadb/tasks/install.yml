@@ -1,0 +1,45 @@
+---
+- hosts: docker
+  become: yes
+  
+  tasks:
+    - include_vars: ../../../vars/main.json
+    - include_vars: ../vars/main.json
+    
+    - name: Deploy MariaDB
+      community.docker.docker_container:
+        name: mariadb
+        recreate: yes
+        image: mariadb:latest
+        ports:
+          - "{{ ansible_default_ipv4.address }}:3306:3306"
+        env:
+          MARIADB_ROOT_PASSWORD: "{{ mariadb_root_password }}"
+          MARIADB_USER: "{{ mariadb_user }}"
+          MARIADB_PASSWORD: "{{ mariadb_user_password }}"
+        volumes:
+          - /opt/docker/mariadb/data:/var/lib/mysql
+        restart_policy: always
+
+    - name: Deploy PhpMyAdmin
+      community.docker.docker_container:
+        name: phpmyadmin
+        recreate: yes
+        image: phpmyadmin:latest
+        ports:
+          - "{{ ansible_default_ipv4.address }}:9003:80"
+        links:
+          mariadb:db
+        env:
+          PMA_HOST: "db"
+        restart_policy: always
+        labels:
+          homepage.group: Management
+          homepage.name: PHP My Admin
+          homepage.href: https://phpmyadmin.{{ domain }}
+          homepage.description: Web interface for Maria DB
+    
+    - name: Grant privileges to the user created
+      community.docker.docker_container_exec:
+        container: mariadb
+        command: mysql -u root --password={{ mariadb_root_password }} --execute="REVOKE ALL PRIVILEGES ON *.* FROM '{{ mariadb_user }}'@'%'; GRANT ALL PRIVILEGES ON *.* TO '{{ mariadb_user }}'@'%' REQUIRE NONE WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;"

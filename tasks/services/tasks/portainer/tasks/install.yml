@@ -1,0 +1,25 @@
+---
+- hosts: docker
+  become: yes
+
+  tasks:
+    - include_vars: ../../../vars/main.json
+        
+    - name: Deploy Portainer
+      community.docker.docker_container:
+        name: portainer
+        recreate: yes
+        image: portainer/portainer-ce
+        ports:
+          - "{{ ansible_default_ipv4.address }}:9000:9000"
+          - "{{ ansible_default_ipv4.address }}:8000:8000"
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /opt/docker/portainer:/data
+        restart_policy: always
+        labels:
+          homepage.group: Management
+          homepage.name: Portainer
+          homepage.href: https://portainer.{{ domain }}
+          homepage.description: Docker interface
+          com.centurylinklabs.watchtower.enable: "true"
