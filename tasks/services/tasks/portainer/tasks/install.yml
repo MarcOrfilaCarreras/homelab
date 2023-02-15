@@ -3,7 +3,7 @@
   become: yes
 
   tasks:
-    - include_vars: ../../../vars/main.json
+    - include_vars: ../../../../vars/main.json
         
     - name: Deploy Portainer
       community.docker.docker_container:
@@ -11,8 +11,8 @@
         recreate: yes
         image: portainer/portainer-ce
         ports:
-          - "{{ ansible_default_ipv4.address }}:9000:9000"
-          - "{{ ansible_default_ipv4.address }}:8000:8000"
+          - "127.0.0.1:9000:9000"
+          - "127.0.0.1:8000:8000"
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
           - /opt/docker/portainer:/data

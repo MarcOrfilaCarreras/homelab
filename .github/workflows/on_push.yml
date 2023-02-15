@@ -1,0 +1,34 @@
+name: On Push Run
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths-ignore:
+      - '**/README.md'
+
+env:
+  DEVOPS_DIR: devops
+
+jobs:
+  readme-update:
+    name: Update services in README.md
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone repo
+      uses: actions/checkout@v2
+      with:
+        repository: marcorfilacarreras/homelab
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: ${{ env.DEVOPS_DIR }}
+
+    - name: Run script
+      run: python ${{ env.DEVOPS_DIR }}/.github/scripts/on_push.py
+      shell: sh
+
+    - name: Commit report
+      run: |
+        git config --global user.name 'MarcOrfilaCarreras'
+        git config --global user.email 'marcorfilacarreras@users.noreply.github.com'
+        git commit -am "Updated: README.md"
+        git push

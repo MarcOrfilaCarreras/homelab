@@ -1,0 +1,4 @@
+{
+    "tailscale_gpg": "https://pkgs.tailscale.com/stable/ubuntu/focal.noarmor.gpg",
+    "tailscale_list": "https://pkgs.tailscale.com/stable/ubuntu/focal.tailscale-keyring.list"
+}

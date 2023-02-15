@@ -3,8 +3,7 @@
   become: yes
   
   tasks:
-    - include_vars: ../../../vars/main.json
-    - include_vars: ../vars/main.json
+    - include_vars: ../../../../../vars/main.json
 
     - name: Deploy Pi-Hole
       community.docker.docker_container:
@@ -12,9 +11,9 @@
           recreate: yes
           image: pihole/pihole:latest
           ports:
-            - "{{ ansible_default_ipv4.address }}:53:53/tcp"
-            - "{{ ansible_default_ipv4.address }}:53:53/udp"
-            - "{{ ansible_default_ipv4.address }}:9004:80/tcp"
+            - "53:53/tcp"
+            - "53:53/udp"
+            - "127.0.0.1:9004:80/tcp"
           volumes:
             - /opt/docker/pihole/config:/etc/pihole
             - /opt/docker/pihole/dnsmasq:/etc/dnsmasq.d

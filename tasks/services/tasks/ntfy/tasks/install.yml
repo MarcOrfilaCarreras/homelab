@@ -1,0 +1,38 @@
+---
+- hosts: docker
+  become: yes
+
+  tasks:
+    - include_vars: ../../../../../vars/main.json
+
+    - name: Creates directory
+      file:
+        path: /opt/docker/ntfy/config
+        state: directory
+
+    - name: Create Caddyfile file
+      ansible.builtin.template:
+        src: ../templates/server.yml.j2
+        dest: /opt/docker/ntfy/config/server.yml
+        owner: root
+        group: root
+        mode: '0774'
+        
+    - name: Deploy Ntfy
+      community.docker.docker_container:
+        name: ntfy
+        recreate: yes
+        image: binwiederhier/ntfy
+        ports:
+          - "127.0.0.1:9010:80"
+        volumes:
+          - /opt/docker/ntfy/cache:/var/cache/ntfy
+          - /opt/docker/ntfy/config:/etc/ntfy
+        restart_policy: always
+        command: serve
+        labels:
+          homepage.group: Services
+          homepage.name: Ntfy.sh
+          homepage.href: https://ntfy.{{ domain }}
+          homepage.description: Notification system
+          com.centurylinklabs.watchtower.enable: "true"

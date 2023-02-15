@@ -4,13 +4,13 @@
 
   tasks:
 
-    - include_vars: ../vars/main.json
+    - include_vars: ../../../../../vars/main.json
 
     - include_vars: ../vars/rpi(bullseye).json
       when: ansible_architecture == "aarch64" and ansible_distribution == "Debian"
 
-    - include_vars: ../vars/x86(jammy).json
-      when: ansible_architecture == "x86_64" and ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "22"
+    - include_vars: ../vars/x86.json
+      when: ansible_architecture == "x86_64" and ansible_distribution == "Ubuntu"
 
     - name: Download the binary
       get_url:

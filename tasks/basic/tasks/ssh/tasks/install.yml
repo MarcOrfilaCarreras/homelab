@@ -1,18 +1,18 @@
 ---
 - hosts: ssh
   become: yes
-  ignore_unreachable: true
+  ignore_unreachable: yes
 
   # Rember to set the user, password and become password
 
   tasks:
-    - include_vars: ../vars/main.json
-
+    - include_vars: ../../../../../vars/main.json
+    
     - name: Create new user
       ansible.builtin.user:
-        name: "{{ ssh_name }}"
+        name: "{{ user_ssh }}"
         shell: /bin/bash
-        password: "{{ ssh_password }}" #openssl passwd
+        password: "{{ password_ssh }}" #openssl passwd
         groups: sudo
         state: present
 
@@ -87,22 +87,22 @@
 
     - name: Create a directory if it does not exist
       ansible.builtin.file:
-        owner: "{{ ssh_name }}"
-        group: "{{ ssh_name }}"
-        path: /home/{{ ssh_name }}/.ssh
+        owner: "{{ user_ssh }}"
+        group: "{{ user_ssh }}"
+        path: /home/{{ user_ssh }}/.ssh
         state: directory
         mode: '0700'
 
     - name: Copy SSH public key
       copy:
-        src: "{{ ssh_pub_key }}"
-        dest: /home/{{ ssh_name }}/.ssh/authorized_keys
+        src: "{{ pub_key_ssh }}"
+        dest: /home/{{ user_ssh }}/.ssh/authorized_keys
         remote_src: no
 
     - name: Don't ask for password
       ansible.builtin.lineinfile:
         path: /etc/sudoers
-        line: "{{ ssh_name }} ALL=(ALL) NOPASSWD: ALL"
+        line: "{{ user_ssh }} ALL=(ALL) NOPASSWD: ALL"
 
     - name: Ensure that the directory exists
       file:

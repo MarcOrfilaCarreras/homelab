@@ -1,4 +1,21 @@
 ---
+- hosts: ssh
+  become: yes
+  ignore_unreachable: yes
+  tasks:
+    - name: Create backup directory
+      file:
+        path: /opt/backups
+        state: directory
+
+    - name: Add entry to fstab and mount backup drive
+      mount:
+        path: /opt/backups
+        src: /dev/sdb1
+        fstype: ext4
+        opts: defaults
+        state: mounted
+
 #Basic
 - import_playbook: ../tasks/basic/tasks/ssh/tasks/install.yml
 - import_playbook: ../tasks/basic/tasks/tailscale/tasks/install.yml
@@ -6,19 +23,19 @@
 - import_playbook: ../tasks/basic/tasks/docker/tasks/install.yml
 - import_playbook: ../tasks/basic/tasks/ufw/tasks/install.yml
 
-#Docker
+#Backup
 - import_playbook: ../tasks/services/tasks/duplicati/tasks/install.yml
+
+#Databases
+- import_playbook: ../tasks/services/tasks/mariadb/tasks/install.yml
+- import_playbook: ../tasks/services/tasks/postgres/tasks/install.yml
+
+#Services
 - import_playbook: ../tasks/services/tasks/duplicati-dashboard/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/homepage/tasks/install.yml
-- import_playbook: ..//tasks/services/tasks/pihole/tasks/install.yml
+- import_playbook: ../tasks/services/tasks/pihole/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/portainer/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/vaultwarden/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/watchtower/tasks/install.yml
-- import_playbook: ../tasks/services/tasks/webdav/tasks/install.yml
-
-#Databases
-- import_playbook: ../tasks/databases/tasks/mariadb/tasks/install.yml
-- import_playbook: ../tasks/databases/tasks/postgres/tasks/install.yml
-
-#Commands
-# mount /dev/sdb1 /opt/backups/ - To mount the disk
+- import_playbook: ../tasks/services/tasks/nextcloud/tasks/install.yml
+- import_playbook: ../tasks/services/tasks/ntfy/tasks/install.yml

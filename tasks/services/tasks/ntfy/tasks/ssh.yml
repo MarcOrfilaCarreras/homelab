@@ -1,0 +1,27 @@
+---
+- hosts: docker
+  become: yes
+
+  tasks:
+    - include_vars: ../../../../vars/main.json
+
+    - name: Add notifications
+      lineinfile:
+        path: "/etc/pam.d/sshd"
+        line: "session optional pam_exec.so /usr/bin/ntfy-ssh-login.sh"
+        insertafter: EOF
+    
+    - name: Create script
+      copy:
+        dest: "/usr/bin/ntfy-ssh-login.sh"
+        content: |
+          #!/bin/bash
+          curl \
+            -H "Email: {{ receive_email_ntfy }}" \
+            -d "There's someone in the server." \
+            https://ntfy.{{ domain }}/alerts
+    
+    - name: Adding "+x"
+      file:
+        dest: /usr/bin/ntfy-ssh-login.sh
+        mode: a+x

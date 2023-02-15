@@ -1,5 +1,0 @@
-{
-    "ssh_name": "user",
-    "ssh_password": "password",
-    "ssh_pub_key": "pub_key"
-}

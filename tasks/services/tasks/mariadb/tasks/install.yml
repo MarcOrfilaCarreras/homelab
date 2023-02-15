@@ -3,8 +3,7 @@
   become: yes
   
   tasks:
-    - include_vars: ../../../vars/main.json
-    - include_vars: ../vars/main.json
+    - include_vars: ../../../../../vars/main.json
     
     - name: Deploy MariaDB
       community.docker.docker_container:
@@ -12,7 +11,7 @@
         recreate: yes
         image: mariadb:latest
         ports:
-          - "{{ ansible_default_ipv4.address }}:3306:3306"
+          - "3306:3306"
         env:
           MARIADB_ROOT_PASSWORD: "{{ mariadb_root_password }}"
           MARIADB_USER: "{{ mariadb_user }}"
@@ -27,11 +26,9 @@
         recreate: yes
         image: phpmyadmin:latest
         ports:
-          - "{{ ansible_default_ipv4.address }}:9003:80"
+          - "127.0.0.1:9003:80"
         links:
           mariadb:db
-        env:
-          PMA_HOST: "db"
         restart_policy: always
         labels:
           homepage.group: Management

@@ -1,5 +1,0 @@
-{
-    "mariadb_root_password": "password",
-    "mariadb_user": "user",
-    "mariadb_user_password": "password"
-}

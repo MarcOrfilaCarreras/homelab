@@ -3,8 +3,7 @@
   become: yes
   
   tasks:
-    - include_vars: ../../../vars/main.json
-    - include_vars: ../vars/main.json
+    - include_vars: ../../../../../vars/main.json
 
     - name: Create user and database
       community.docker.docker_container_exec:
@@ -17,7 +16,7 @@
         recreate: yes
         image: ghcr.io/marcorfilacarreras/duplicati-dashboard:backend
         ports:
-          - "{{ ansible_default_ipv4.address }}:9006:80"
+          - "127.0.0.1:9006:80"
         restart_policy: always
         labels:
             com.centurylinklabs.watchtower.enable: "true"
@@ -28,7 +27,7 @@
         recreate: yes
         image: ghcr.io/marcorfilacarreras/duplicati-dashboard:frontend
         ports:
-          - "{{ ansible_default_ipv4.address }}:9007:80"
+          - "127.0.0.1:9007:80"
         links:
           duplicati_dashboard_backend:duplicati_dashboard_backend
         restart_policy: always

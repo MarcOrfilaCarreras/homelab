@@ -35,53 +35,21 @@ This repository contains all my Ansible playbooks I use to setup my personal hom
     <tr>
         <th>Logo</th>
         <th>Name</th>
-        <th>Usage</th>
     </tr>
-    <tr>
-        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/portainer.png" style="height: 25px"/></td>
-        <td>Portainer</td>
-        <td>Container management tool</td>
-    </tr>
-    <tr>
-        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/homepage.png" style="height: 25px"/></td>
-        <td>Homepage</td>
-        <td>Dashboard</td>
-    </tr>
-    <tr>
-        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/duplicati.png" style="height: 25px"/></td>
-        <td>Duplicati</td>
-        <td>Backup tool</td>
-    </tr>
-    <tr>
-        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/mariadb.png" style="height: 25px"/></td>
-        <td>MariaDB</td>
-        <td>Database management system</td>
-    </tr>
-    <tr>
-        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/phpmyadmin.png" style="height: 25px"/></td>
-        <td>PhpMyAdmin</td>
-        <td>Web application to manage MySQL databases</td>
-    </tr>
-    <tr>
-        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/pihole.png" style="height: 25px"/></td>
-        <td>Pi-Hole</td>
-        <td>DNS server</td>
-    </tr>
-    <tr>
-        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/vaultwarden.png" style="height: 25px"/></td>
-        <td>Vaultwarden</td>
-        <td>Password manager</td>
-    </tr>
-    <tr>
-        <td><img src="" style="height: 25px"/></td>
-        <td>Duplicati Dahsboard</td>
-        <td>Backup monitoring tool for Duplicati</td>
-    </tr>
-    <tr>
-        <td><img src="https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/webdav.png" style="height: 25px"/></td>
-        <td>WebDAV</td>
-        <td>Remote folder</td>
-    </tr>
+    <!-- Start Replace -->
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/ntfy.png" style="height: 25px"></img></td><td>Ntfy</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/nextcloud.png" style="height: 25px"></img></td><td>Nextcloud</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/pihole.png" style="height: 25px"></img></td><td>Pihole</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/duplicati.png" style="height: 25px"></img></td><td>Duplicati</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/postgres.png" style="height: 25px"></img></td><td>Postgres</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/duplicati-dashboard.png" style="height: 25px"></img></td><td>Duplicati-dashboard</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/mariadb.png" style="height: 25px"></img></td><td>Mariadb</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/watchtower.png" style="height: 25px"></img></td><td>Watchtower</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/homepage.png" style="height: 25px"></img></td><td>Homepage</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/vaultwarden.png" style="height: 25px"></img></td><td>Vaultwarden</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/mongodb.png" style="height: 25px"></img></td><td>Mongodb</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/portainer.png" style="height: 25px"></img></td><td>Portainer</td></tr> 
+<!-- End Replace -->
 </table>
 
 And more on the way ...

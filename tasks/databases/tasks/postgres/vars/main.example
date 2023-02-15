@@ -1,6 +1,0 @@
-{
-    "postgres_user": "user",
-    "postgres_user_password": "password",
-    "pgadmin_email": "hi@example.com",
-    "pgadmin_password": "password"
-}

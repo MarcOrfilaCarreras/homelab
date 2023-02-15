@@ -1,8 +1,8 @@
 {
         auto_https disable_redirects
         acme_ca https://api.buypass.com/acme/directory
-        email {{ email }}
-        acme_dns cloudflare {{ token }}
+        email {{ email_cloudflare_caddy }}
+        acme_dns cloudflare {{ token_cloudflare_caddy }}
 }
 
 http://portainer.{{ domain }} {
@@ -95,4 +95,22 @@ http://pgadmin.{{ domain }} {
 https://pgadmin.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9009
+}
+
+http://ntfy.{{ domain }} {
+        redir https://ntfy.{{ domain }}{uri}
+}
+
+https://ntfy.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 127.0.0.1:9010
+}
+
+http://nextcloud.{{ domain }} {
+        redir https://nextcloud.{{ domain }}{uri}
+}
+
+https://nextcloud.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 127.0.0.1:9011
 }

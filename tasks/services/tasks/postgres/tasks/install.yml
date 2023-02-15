@@ -3,8 +3,7 @@
   become: yes
   
   tasks:
-    - include_vars: ../../../vars/main.json
-    - include_vars: ../vars/main.json
+    - include_vars: ../../../../../vars/main.json
     
     - name: Deploy Postgres
       community.docker.docker_container:
@@ -12,7 +11,7 @@
         recreate: yes
         image: postgres:latest
         ports:
-          - "{{ ansible_default_ipv4.address }}:5432:5432"
+          - "5432:5432"
         env:
           POSTGRES_USER: "{{ postgres_user }}"
           POSTGRES_PASSWORD: "{{ postgres_user_password }}"
@@ -27,7 +26,7 @@
         recreate: yes
         image: dpage/pgadmin4:latest
         ports:
-          - "{{ ansible_default_ipv4.address }}:9009:80"
+          - "127.0.0.1:9009:80"
         links:
           postgres:db
         env:
@@ -40,7 +39,7 @@
         restart_policy: always
         labels:
           homepage.group: Management
-          homepage.name: PGamdin
+          homepage.name: PGadmin
           homepage.href: https://pgadmin.{{ domain }}
           homepage.description: Postgres administration
           com.centurylinklabs.watchtower.enable: "true"

@@ -1,0 +1,50 @@
+{
+    "comment": "------------------------------------------------------------------------",
+    "comment": "                               GENERAL                                  ",
+    "comment": "------------------------------------------------------------------------",
+
+    "domain": "example.com",
+
+    "comment": "------------------------------------------------------------------------",
+    "comment": "                                BASIC                                   ",
+    "comment": "------------------------------------------------------------------------",
+
+    "email_cloudflare_caddy": "example@example.com",
+    "token_cloudflare_caddy": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "user_caddy": "user",
+    "group_caddy": "group",
+
+    "user_ssh": "user",
+    "password_ssh": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "pub_key_ssh": "/home/user/.ssh/id_rsa.pub",
+
+    "comment": "------------------------------------------------------------------------",
+    "comment": "                                 DOCKER                                 ",
+    "comment": "------------------------------------------------------------------------",
+
+    "duplicati_dashboard_user": "duplicati_dashboard",
+    "duplicati_dashboard_password": "password",
+
+    "mariadb_root_password": "password",
+    "mariadb_user": "user",
+    "mariadb_user_password": "password",
+
+    "postgres_user": "user",
+    "postgres_user_password": "password",
+    "pgadmin_email": "example@example.com",
+    "pgadmin_password": "password",
+
+    "nextcloud_user": "nextcloud",
+    "nextcloud_password": "password",
+
+    "receive_email_ntfy" : "example@example.com",
+    "smtp_email_ntfy" : "smtp.gmail.com:587",
+    "user_email_ntfy" : "example@example.com",
+    "password_email_ntfy" : "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "from_email_ntfy" : "example@example.com",
+
+    "pihole_password": "password",
+
+    "vaultwarden_user": "vaultwarden",
+    "vaultwarden_password": "password",
+}

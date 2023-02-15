@@ -3,7 +3,7 @@
   become: yes
 
   tasks:
-    - include_vars: ../../../vars/main.json
+    - include_vars: ../../../../../vars/main.json
         
     - name: Deploy Duplicati
       community.docker.docker_container:
@@ -11,7 +11,7 @@
         recreate: yes
         image: duplicati/duplicati:latest
         ports:
-          - "{{ ansible_default_ipv4.address }}:9002:8200"
+          - "127.0.0.1:9002:8200"
         volumes:
           - /opt/docker/duplicati/config:/config
           - /opt/backups:/backups
