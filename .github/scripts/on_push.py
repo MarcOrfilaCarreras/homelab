@@ -1,7 +1,7 @@
 import os, re
 
 if __name__== "__main__":
-
+    
     input = open('README.md').read()
 
     folders = [name for name in os.listdir('tasks/services/tasks') if os.path.isdir(os.path.join('tasks/services/tasks', name))]

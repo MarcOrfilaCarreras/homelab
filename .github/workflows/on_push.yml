@@ -20,10 +20,9 @@ jobs:
       with:
         repository: marcorfilacarreras/homelab
         token: ${{ secrets.GITHUB_TOKEN }}
-        path: ${{ env.DEVOPS_DIR }}
 
     - name: Run script
-      run: python ${{ env.DEVOPS_DIR }}/.github/scripts/on_push.py
+      run: python .github/scripts/on_push.py
       shell: sh
 
     - name: Commit report
