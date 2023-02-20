@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Set the name of the file to be monitored to the argument provided
+f="/var/log/ufw.log"
+
+# Read the current contents of the file into the variable `curr`
+curr=$(<"$f")
+
+# Monitor the file for modifications and output the event type, file name,
+# timestamp, and modified text for each modification
+inotifywait -m -e modify "$f" --format "%e %f %T" --timefmt "%Y-%m-%d %H:%M:%S" | 
+while read -r event filename timestamp
+do
+    # Check if the current event is a "MODIFY" event
+    if [ "$event" == "MODIFY" ]; then
+
+        # Store the previous contents of the file in `prev`
+        prev="$curr"
+
+        # Update the `curr` variable with the current contents of the file
+        curr=$(<"$f")
+
+        # Compare the current and previous contents of the file
+        # If they are different, find the line number and text that has been modified
+        if [ "$curr" != "$prev" ]; then
+            modified_lines=$(diff -u <(echo "$prev") <(echo "$curr") | sed -n 's/^+\(.*\)/\1/p')
+
+            # Extract relevant information from the modified lines
+            action=$(echo "$modified_lines" | awk '{print $8}')
+            foreignip=$(echo "$modified_lines" | awk '{print $12}')
+            destinationip=$(echo "$modified_lines" | awk '{print $13}')
+            destinationport=$(echo "$modified_lines" | awk '{print $22}')
+
+            # Remove unnecessary characters from the extracted information
+            action=${action%?}
+            foreignip="${foreignip:5}"
+            destinationip="${destinationip:5}"
+            destinationport="${destinationport:5}"
+
+            /opt/cli/seq/seqcli log -l Warning -m "Someone tried to access a closed service." -p Server=$(hostname) -p Action=$(echo $action) -p ForeignIP=$(echo $foreignip) -p DestinationIP=$(echo $destinationip) -p Port=$(echo $destinationport) -p Service=UFW
+        fi
+    fi
+done

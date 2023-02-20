@@ -11,8 +11,9 @@
 
     "email_cloudflare_caddy": "example@example.com",
     "token_cloudflare_caddy": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "user_caddy": "user",
-    "group_caddy": "group",
+
+    "user_systemd": "user",
+    "group_systemd": "group",
 
     "user_ssh": "user",
     "password_ssh": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -47,4 +48,7 @@
 
     "vaultwarden_user": "vaultwarden",
     "vaultwarden_password": "password",
+
+    "seq_user": "username",
+    "seq_password": "password"
 }

@@ -1,0 +1,41 @@
+---
+- hosts: docker
+  become: true
+
+  tasks:
+    - include_vars: ../../../../../vars/main.json
+
+    - name: Install all dependencies
+      ansible.builtin.package:
+        name:
+          - inotify-tools
+        state: latest
+        update_cache: yes
+
+    - name: Create the directory
+      file:
+          path: /opt/scripts
+          state: directory
+          owner: root
+          group: root
+
+    - name: Create systemd service
+      template:
+          src: ../templates/ufwscript.service.j2
+          dest: /lib/systemd/system/ufwscript.service
+          owner: root
+          group: root
+
+    - name: Create the script file
+      ansible.builtin.template:
+        src: ../templates/file_changed.sh.j2
+        dest: /opt/scripts/ufw.sh
+        owner: root
+        group: root
+        mode: '0774'
+
+    - name: Restart the service
+      ansible.builtin.service:
+        name: ufwscript
+        state: restarted
+        enabled: yes

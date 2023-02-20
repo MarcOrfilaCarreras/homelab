@@ -22,6 +22,8 @@
 - import_playbook: ../tasks/basic/tasks/caddy/tasks/install.yml
 - import_playbook: ../tasks/basic/tasks/docker/tasks/install.yml
 - import_playbook: ../tasks/basic/tasks/ufw/tasks/install.yml
+- import_playbook: ../tasks/basic/tasks/seq/tasks/install.yml
+- import_playbook: ../tasks/basic/tasks/scripts/tasks/install.yml
 
 #Backup
 - import_playbook: ../tasks/services/tasks/duplicati/tasks/install.yml
@@ -39,3 +41,4 @@
 - import_playbook: ../tasks/services/tasks/watchtower/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/nextcloud/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/ntfy/tasks/install.yml
+- import_playbook: ../tasks/services/tasks/seq/tasks/install.yml

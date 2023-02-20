@@ -114,3 +114,12 @@ https://nextcloud.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9011
 }
+
+http://seq.{{ domain }} {
+        redir https://seq.{{ domain }}{uri}
+}
+
+https://seq.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 127.0.0.1:9012
+}
