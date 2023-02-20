@@ -12,6 +12,8 @@
         state: latest
         update_cache: yes
 
+    # UFW
+
     - name: Create the directory
       file:
           path: /opt/scripts
@@ -39,3 +41,24 @@
         name: ufwscript
         state: restarted
         enabled: yes
+
+    # SSH
+
+    - name: Add line to .profile
+      ansible.builtin.blockinfile:
+        path: /home/{{ user_systemd }}/.profile
+        block: |
+          /opt/scripts/ssh.sh
+
+    - name: Create script
+      copy:
+        dest: "/opt/scripts/ssh.sh"
+        content: |
+          #!/bin/bash
+          IP=$(echo $SSH_CLIENT | awk '{ print $1}')
+          /opt/cli/seq/seqcli log -l Warning -m "Someone is in the server." -p Server=$(hostname) -p ForeignIP=$(echo $IP) -p Service=SSH
+    
+    - name: Adding "+x"
+      file:
+        dest: /opt/scripts/ssh.sh
+        mode: a+x
