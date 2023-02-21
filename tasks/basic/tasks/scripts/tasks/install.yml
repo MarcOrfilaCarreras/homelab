@@ -9,6 +9,7 @@
       ansible.builtin.package:
         name:
           - inotify-tools
+          - jq
         state: latest
         update_cache: yes
 
@@ -30,7 +31,7 @@
 
     - name: Create the script file
       ansible.builtin.template:
-        src: ../templates/file_changed.sh.j2
+        src: ../templates/ufw.sh.j2
         dest: /opt/scripts/ufw.sh
         owner: root
         group: root
@@ -62,3 +63,33 @@
       file:
         dest: /opt/scripts/ssh.sh
         mode: a+x
+
+    # Caddy
+
+    - name: Create the directory
+      file:
+          path: /var/log/caddy
+          state: directory
+          owner: "{{ user_systemd }}"
+          group: "{{ group_systemd }}"
+
+    - name: Create systemd service
+      template:
+          src: ../templates/caddyscript.service.j2
+          dest: /lib/systemd/system/caddyscript.service
+          owner: root
+          group: root
+
+    - name: Create the script file
+      ansible.builtin.template:
+        src: ../templates/caddy.sh.j2
+        dest: /opt/scripts/caddy.sh
+        owner: root
+        group: root
+        mode: '0774'
+
+    - name: Restart the service
+      ansible.builtin.service:
+        name: caddyscript
+        state: restarted
+        enabled: yes

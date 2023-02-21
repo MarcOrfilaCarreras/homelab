@@ -1,3 +1,9 @@
+(log_common) {
+  log {
+    output file /var/log/caddy/{args.0}.access.log
+  }
+}
+
 {
         auto_https disable_redirects
         acme_ca https://api.buypass.com/acme/directory
@@ -12,6 +18,8 @@ http://portainer.{{ domain }} {
 https://portainer.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9000
+
+        import log_common portainer
 }
 
 http://homepage.{{ domain }} {
@@ -21,6 +29,8 @@ http://homepage.{{ domain }} {
 https://homepage.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9001
+
+        import log_common homepage
 }
 
 http://duplicati.{{ domain }} {
@@ -30,6 +40,8 @@ http://duplicati.{{ domain }} {
 https://duplicati.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9002
+
+        import log_common duplicati
 }
 
 http://phpmyadmin.{{ domain }} {
@@ -39,6 +51,8 @@ http://phpmyadmin.{{ domain }} {
 https://phpmyadmin.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9003
+
+        import log_common phpmyadmin
 }
 
 http://pihole.{{ domain }} {
@@ -50,6 +64,8 @@ https://pihole.{{ domain }} {
 
         ## reverse proxy
         reverse_proxy 127.0.0.1:9004
+
+        import log_common pihole
 }
 
 http://vaultwarden.{{ domain }} {
@@ -59,6 +75,8 @@ http://vaultwarden.{{ domain }} {
 https://vaultwarden.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9005
+
+        import log_common vaultwarden
 }
 
 http://duplicati-dashboard-api.{{ domain }} {
@@ -68,6 +86,8 @@ http://duplicati-dashboard-api.{{ domain }} {
 https://duplicati-dashboard-api.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9006
+
+        import log_common duplicati-dashboard-api
 }
 
 http://duplicati-dashboard-web.{{ domain }} {
@@ -77,15 +97,8 @@ http://duplicati-dashboard-web.{{ domain }} {
 https://duplicati-dashboard-web.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9007
-}
 
-http://webdav.{{ domain }} {
-        redir https://webdav.{{ domain }}{uri}
-}
-
-https://webdav.{{ domain }} {
-        ## reverse proxy
-        reverse_proxy 127.0.0.1:9008
+        import log_common duplicati-dashboard-web
 }
 
 http://pgadmin.{{ domain }} {
@@ -95,6 +108,8 @@ http://pgadmin.{{ domain }} {
 https://pgadmin.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9009
+
+        import log_common pgadmin
 }
 
 http://ntfy.{{ domain }} {
@@ -104,6 +119,8 @@ http://ntfy.{{ domain }} {
 https://ntfy.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9010
+
+        import log_common ntfy
 }
 
 http://nextcloud.{{ domain }} {
@@ -113,6 +130,8 @@ http://nextcloud.{{ domain }} {
 https://nextcloud.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9011
+
+        import log_common nextcloud
 }
 
 http://seq.{{ domain }} {
