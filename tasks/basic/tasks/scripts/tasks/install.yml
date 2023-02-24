@@ -9,7 +9,6 @@
       ansible.builtin.package:
         name:
           - inotify-tools
-          - jq
         state: latest
         update_cache: yes
 
@@ -75,21 +74,30 @@
 
     - name: Create systemd service
       template:
-          src: ../templates/caddyscript.service.j2
-          dest: /lib/systemd/system/caddyscript.service
+          src: ../templates/caddyinjest.service.j2
+          dest: /lib/systemd/system/caddyinjest.service
           owner: root
           group: root
 
-    - name: Create the script file
-      ansible.builtin.template:
-        src: ../templates/caddy.sh.j2
-        dest: /opt/scripts/caddy.sh
-        owner: root
-        group: root
-        mode: '0774'
+    - name: Create systemd timer
+      template:
+          src: ../templates/caddyinjest.timer.j2
+          dest: /lib/systemd/system/caddyinjest.timer
+          owner: root
+          group: root
 
     - name: Restart the service
       ansible.builtin.service:
-        name: caddyscript
+        name: caddyinjest
         state: restarted
         enabled: yes
+    
+    - name: Restart the timer
+      ansible.builtin.service:
+        name: caddyinjest.timer
+        state: restarted
+        enabled: yes
+
+    - name: Just force systemd to reread configs (2.4 and above)
+      ansible.builtin.systemd:
+        daemon_reload: true
