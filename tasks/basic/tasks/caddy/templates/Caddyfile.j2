@@ -6,7 +6,7 @@
 
 {
         auto_https disable_redirects
-        acme_ca https://api.buypass.com/acme/directory
+        acme_ca https://acme-v02.api.letsencrypt.org/directory
         email {{ email_cloudflare_caddy }}
         acme_dns cloudflare {{ token_cloudflare_caddy }}
 }
@@ -141,4 +141,13 @@ http://seq.{{ domain }} {
 https://seq.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9012
+}
+
+http://download.{{ domain }} {
+        redir https://download.{{ domain }}{uri}
+}
+
+https://download.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 127.0.0.1:9013
 }
