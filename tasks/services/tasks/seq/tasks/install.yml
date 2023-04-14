@@ -3,7 +3,7 @@
   become: yes
   
   tasks:
-    - include_vars: ../../../../../vars/main.json
+    - include_vars: "{{ vars_folder }}"
 
     - name: Encrypt the password
       ansible.builtin.shell:

@@ -6,7 +6,7 @@
   # Rember to set the user, password and become password
 
   tasks:
-    - include_vars: ../../../../../vars/main.json
+    - include_vars: "{{ vars_folder }}"
     
     - name: Create new user
       ansible.builtin.user:

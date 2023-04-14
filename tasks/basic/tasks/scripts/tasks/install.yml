@@ -3,7 +3,7 @@
   become: true
 
   tasks:
-    - include_vars: ../../../../../vars/main.json
+    - include_vars: "{{ vars_folder }}"
 
     - name: Install all dependencies
       ansible.builtin.package:

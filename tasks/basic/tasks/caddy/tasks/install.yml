@@ -4,7 +4,7 @@
 
   tasks:
 
-    - include_vars: ../../../../../vars/main.json
+    - include_vars: "{{ vars_folder }}"
 
     - include_vars: ../vars/rpi(bullseye).json
       when: ansible_architecture == "aarch64" and ansible_distribution == "Debian"
