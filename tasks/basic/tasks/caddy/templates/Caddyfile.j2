@@ -151,3 +151,12 @@ https://download.{{ domain }} {
         ## reverse proxy
         reverse_proxy 127.0.0.1:9013
 }
+
+http://semaphore.{{ domain }} {
+        redir https://semaphore.{{ domain }}{uri}
+}
+
+https://semaphore.{{ domain }} {
+        ## reverse proxy
+        reverse_proxy 127.0.0.1:9014
+}

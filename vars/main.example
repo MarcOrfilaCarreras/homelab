@@ -19,6 +19,8 @@
     "password_ssh": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "pub_key_ssh": "/home/user/.ssh/id_rsa.pub",
 
+    "tailscale_key": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+
     "comment": "------------------------------------------------------------------------",
     "comment": "                                 DOCKER                                 ",
     "comment": "------------------------------------------------------------------------",
@@ -50,5 +52,18 @@
     "vaultwarden_password": "password",
 
     "seq_user": "username",
-    "seq_password": "password"
+    "seq_password": "password",
+
+    "mysql_user": "username",
+    "mysql_password": "password",
+    "mysql_root_password": "password",
+    
+    "semaphore_user": "semaphore",
+    "semaphore_password": "password",
+    "semaphore_admin_user": "username",
+    "semaphore_admin_pass": "password",
+    "semaphore_admin_email": "example@example.com",
+    "semaphore_key_encryption": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "semaphore_cloudflared": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
 }

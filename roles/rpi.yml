@@ -22,7 +22,6 @@
 - import_playbook: ../tasks/basic/tasks/caddy/tasks/install.yml
 - import_playbook: ../tasks/basic/tasks/docker/tasks/install.yml
 - import_playbook: ../tasks/basic/tasks/ufw/tasks/install.yml
-- import_playbook: ../tasks/basic/tasks/seq/tasks/install.yml
 - import_playbook: ../tasks/basic/tasks/scripts/tasks/install.yml
 
 #Backup
@@ -31,6 +30,7 @@
 #Databases
 - import_playbook: ../tasks/services/tasks/mariadb/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/postgres/tasks/install.yml
+- import_playbook: ../tasks/services/tasks/mysql/tasks/install.yml
 
 #Services
 - import_playbook: ../tasks/services/tasks/duplicati-dashboard/tasks/install.yml
@@ -42,3 +42,8 @@
 - import_playbook: ../tasks/services/tasks/nextcloud/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/ntfy/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/seq/tasks/install.yml
+- import_playbook: ../tasks/services/tasks/pyload/tasks/install.yml
+- import_playbook: ../tasks/services/tasks/semaphore/tasks/install.yml
+
+#Last ones
+- import_playbook: ../tasks/basic/tasks/seq/tasks/install.yml

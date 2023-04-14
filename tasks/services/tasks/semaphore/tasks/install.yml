@@ -1,0 +1,77 @@
+---
+- hosts: docker
+  become: yes
+
+  tasks:
+    - include_vars: ../../../../../vars/main.json
+
+    - name: Create user and database
+      community.docker.docker_container_exec:
+        container: mysql
+        command: mysql -u {{ mysql_user }} -h mysql --password={{ mysql_password }} -P 3306 --execute="CREATE USER IF NOT EXISTS '{{ semaphore_user }}'@'%' IDENTIFIED BY '{{ semaphore_password }}';GRANT USAGE ON *.* TO '{{ semaphore_user }}'@'%';CREATE DATABASE IF NOT EXISTS {{ semaphore_user }};GRANT ALL PRIVILEGES ON {{ semaphore_user }}.* TO '{{ semaphore_user }}'@'%';"
+
+    - name: Add group
+      group:
+        name: semaphore
+        state: present
+
+    - name: Add user
+      user:
+        name: semaphore
+        groups: semaphore
+        shell: /sbin/nologin
+        create_home: no
+        append: yes
+        comment: "Semaphore user"
+        state: present
+    
+    - name: Create the directory
+      file:
+          path: /opt/docker/semaphore/data
+          state: directory
+          owner: semaphore
+          group: semaphore
+          
+    - name: Deploy Semaphore
+      community.docker.docker_container:
+        name: semaphore
+        recreate: yes
+        image: semaphoreui/semaphore:latest
+        ports:
+          - "127.0.0.1:9014:3000"
+        links:
+          mysql:mysql
+        volumes:
+          - /opt/docker/semaphore/data:/tmp/semaphore
+        restart_policy: always
+        env:
+          SEMAPHORE_DB_USER: "{{ semaphore_user }}"
+          SEMAPHORE_DB_PASS: "{{ semaphore_password }}"
+          SEMAPHORE_DB_HOST: "mysql"
+          SEMAPHORE_DB_PORT: "3306"
+          SEMAPHORE_DB_DIALECT: "mysql"
+          SEMAPHORE_DB: "{{ semaphore_user }}"
+          SEMAPHORE_PLAYBOOK_PATH: "/tmp/semaphore/"
+          SEMAPHORE_ADMIN_PASSWORD: "{{ semaphore_admin_pass }}"
+          SEMAPHORE_ADMIN_NAME: "{{ semaphore_admin_user }}"
+          SEMAPHORE_ADMIN_EMAIL: "{{ semaphore_admin_email }}"
+          SEMAPHORE_ADMIN: "{{ semaphore_admin_user }}"
+          SEMAPHORE_ACCESS_KEY_ENCRYPTION: "{{ semaphore_key_encryption }}"
+          SEMAPHORE_LDAP_ACTIVATED: "no"
+        labels:
+          homepage.group: Management
+          homepage.name: Semaphore
+          homepage.href: https://semaphore.{{ domain }}
+          homepage.description: Web interface for Ansible deployment
+
+    - name: Deploy Cloudflared
+      community.docker.docker_container:
+        name: cloudflared-semaphore
+        recreate: yes
+        image: cloudflare/cloudflared
+        links:
+          - "semaphore:web"
+        env:
+          TUNNEL_TOKEN: "{{ semaphore_cloudflared }}"
+        restart_policy: always
+        command: tunnel run
