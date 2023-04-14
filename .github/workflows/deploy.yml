@@ -1,5 +1,4 @@
 name: Deploy with Semaphore
-description: Deploy changes to a server
 
 on:
   push:

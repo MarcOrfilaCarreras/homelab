@@ -42,7 +42,7 @@
         links:
           mysql:mysql
         volumes:
-          - /opt/docker/semaphore/data:/tmp/semaphore
+          - /opt/docker/semaphore/data:/home/semaphore
         restart_policy: always
         env:
           SEMAPHORE_DB_USER: "{{ semaphore_user }}"
