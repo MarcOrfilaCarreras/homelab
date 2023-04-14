@@ -3,6 +3,8 @@
   become: yes
   
   tasks:
+    - include_vars: ../../../../../vars/main.json
+
     - include_vars: ../vars/rpi(bullseye).json
       when: ansible_architecture == "aarch64" and ansible_distribution == "Debian"
 
@@ -32,3 +34,15 @@
           - tailscale
         state: latest
         update_cache: yes
+
+    - name: Append to `/etc/sysctl.conf`
+      ansible.builtin.shell: |
+        modprobe xt_mark
+        echo 'net.ipv4.ip_forward = 1' | tee -a /etc/sysctl.conf
+        echo 'net.ipv6.conf.all.forwarding = 1' | tee -a /etc/sysctl.conf
+        echo 'net.ipv6.conf.all.disable_policy = 1' | tee -a /etc/sysctl.conf
+        iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+        ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+    - name: Declare exit node
+      ansible.builtin.shell: /usr/bin/tailscale up --authkey={{ tailscale_key }} --advertise-routes=10.0.0.0/24 --advertise-exit-node
