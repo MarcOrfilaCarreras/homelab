@@ -19,22 +19,6 @@
         volumes:
           - /opt/docker/mariadb/data:/var/lib/mysql
         restart_policy: always
-
-    - name: Deploy PhpMyAdmin
-      community.docker.docker_container:
-        name: phpmyadmin
-        recreate: yes
-        image: phpmyadmin:latest
-        ports:
-          - "127.0.0.1:9003:80"
-        links:
-          mariadb:db
-        restart_policy: always
-        labels:
-          homepage.group: Management
-          homepage.name: PHP My Admin
-          homepage.href: https://phpmyadmin.{{ domain }}
-          homepage.description: Web interface for Maria DB
     
     - name: Grant privileges to the user created
       community.docker.docker_container_exec:

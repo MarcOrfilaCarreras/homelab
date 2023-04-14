@@ -1,0 +1,29 @@
+---
+- hosts: docker
+  become: yes
+
+  tasks:
+    - include_vars: ../../../../../vars/main.json
+
+    - name: Deploy MySQL
+      community.docker.docker_container:
+        name: mysql
+        recreate: yes
+        image: mysql:8.0
+        hostname: "mysql"
+        env:
+          MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+          MYSQL_USER: "{{ mysql_user }}"
+          MYSQL_PASSWORD: "{{ mysql_password }}"
+        volumes:
+          - /opt/docker/mysql/data:/var/lib/mysql
+        restart_policy: always
+
+    - name: Make sure the container has time to start
+      pause:
+        seconds: 360
+
+    - name: Grant privileges to the user created
+      community.docker.docker_container_exec:
+        container: mysql
+        command: mysql -h mysql -P 3306 -u root --password={{ mysql_root_password }} --execute="REVOKE ALL PRIVILEGES ON *.* FROM '{{ mysql_user }}'@'%'; GRANT ALL PRIVILEGES ON *.* TO '{{ mysql_user }}'@'%' WITH GRANT OPTION;"
