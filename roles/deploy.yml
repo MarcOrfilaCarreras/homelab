@@ -1,2 +1,1 @@
 #Playbooks that are going to be deployed
-- import_playbook: ../tasks/basic/tasks/caddy/tasks/update.yml

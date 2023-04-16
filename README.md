@@ -1,4 +1,12 @@
-# Homelab
+<div align="center">
+
+![License](https://img.shields.io/github/license/MarcOrfilaCarreras/homelab?style=flat) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/MarcOrfilaCarreras/homelab/deploy.yml?label=deployment&style=flat) ![GitHub last commit](https://img.shields.io/github/last-commit/MarcOrfilaCarreras/homelab?style=flat)
+
+</div>
+
+<div align="center">
+    <h1>Homelab</h1>
+</div>
 
 ## Description
 

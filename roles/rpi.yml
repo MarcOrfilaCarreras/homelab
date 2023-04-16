@@ -35,7 +35,7 @@
 #Services
 - import_playbook: ../tasks/services/tasks/duplicati-dashboard/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/homepage/tasks/install.yml
-- import_playbook: ../tasks/services/tasks/pihole/tasks/install.yml
+- import_playbook: ../tasks/services/tasks/pi-hole/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/portainer/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/vaultwarden/tasks/install.yml
 - import_playbook: ../tasks/services/tasks/watchtower/tasks/install.yml
