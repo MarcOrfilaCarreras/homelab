@@ -1,0 +1,41 @@
+# Proxmox
+proxmox_node: "PLACEHOLDER_NODE"
+proxmox_container_id: 110
+proxmox_container_name: "PLACEHOLDER_CONTAINER_NAME"
+proxmox_container_description: "PLACEHOLDER_CONTAINER_DESCRIPTION"
+
+proxmox_container_template: "PLACEHOLDER_TEMPLATE"
+proxmox_container_user: "PLACEHOLDER_USER"
+proxmox_container_password: "PLACEHOLDER_PASSWORD"
+
+proxmox_container_cores: 2
+
+proxmox_api_host: "PLACEHOLDER_API_HOST"
+proxmox_api_user: "PLACEHOLDER_API_USER"
+proxmox_api_token_id: "PLACEHOLDER_API_TOKEN_ID"
+proxmox_api_token_secret: "PLACEHOLDER_API_TOKEN_SECRET"
+
+# Common role
+ssh: true
+ssh_user: "PLACEHOLDER_SSH_USER"
+ssh_port: 717
+ssh_password: "PLACEHOLDER_SSH_PASSWORD"  # openssl passwd
+ssh_public_key: "PLACEHOLDER_SSH_PUBLIC_KEY"
+
+ufw: true
+
+docker: true
+
+caddy: true
+caddy_domain: "PLACEHOLDER_CADDY_DOMAIN"
+caddy_cloudflare_email: "PLACEHOLDER_CLOUDFLARE_EMAIL"
+caddy_cloudflare_token: "PLACEHOLDER_CLOUDFLARE_TOKEN"
+
+# Docker role
+docker_user_uid: "PLACEHOLDER_DOCKER_UID"
+docker_user_gid: "PLACEHOLDER_DOCKER_GID"
+docker_tz: "PLACEHOLDER_DOCKER_TZ"
+
+filebrowser: true
+transmission: true
+homarr: true

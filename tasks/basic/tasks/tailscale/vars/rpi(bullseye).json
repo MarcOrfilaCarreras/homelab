@@ -1,4 +1,0 @@
-{
-    "tailscale_gpg": "https://pkgs.tailscale.com/stable/raspbian/bullseye.noarmor.gpg",
-    "tailscale_list": "https://pkgs.tailscale.com/stable/raspbian/bullseye.tailscale-keyring.list"
-}

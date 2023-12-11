@@ -1,0 +1,10 @@
+proxmox_container_id: 200
+proxmox_container_name: "ansible-deployment"
+proxmox_container_description: "Container created successfully with Ansible"
+proxmox_container_password: "123456"
+
+proxmox_container_onboot: true
+proxmox_container_cpus: "1"
+proxmox_container_cores: "1"
+proxmox_container_memory: "1024"
+proxmox_container_network: '{"net0":"name=eth0,ip=dhcp,ip6=dhcp,bridge=vmbr0"}'

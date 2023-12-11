@@ -29,5 +29,5 @@ jobs:
       run: |
         git config --global user.name 'MarcOrfilaCarreras'
         git config --global user.email 'marcorfilacarreras@users.noreply.github.com'
-        git commit -am "Updated: README.md"
+        git commit -am "docs[action]: Update README.md"
         git push

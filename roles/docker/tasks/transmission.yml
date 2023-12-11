@@ -1,0 +1,34 @@
+---
+- name: Creates Config directory
+  ansible.builtin.file:
+    path: /opt/docker/transmission/config
+    state: directory
+
+- name: Creates Downloads directory
+  ansible.builtin.file:
+    path: /opt/docker/transmission/downloads
+    state: directory
+
+- name: Creates Watch directory
+  ansible.builtin.file:
+    path: /opt/docker/transmission/watch
+    state: directory
+
+- name: Deploy Transmission
+  community.docker.docker_container:
+    name: transmission
+    recreate: yes
+    image: lscr.io/linuxserver/transmission:latest
+    ports:
+      - "127.0.0.1:9001:9091"
+      - "127.0.0.1:51413:51413"
+      - "127.0.0.1:51413:51413/udp"
+    env:
+      PUID: "{{ docker_user_uid }}"
+      PGID: "{{ docker_user_gid }}"
+      TZ: "{{ docker_tz }}"
+    volumes:
+      - /opt/docker/transmission/config:/config
+      - /opt/docker/transmission/downloads:/downloads
+      - /opt/docker/transmission/watch:/watch
+    restart_policy: always

@@ -1,0 +1,4 @@
+caddy_url: "https://caddyserver.com/api/download?os=linux&arch=arm64&p=github.com%2Fcaddy-dns%2Fcloudflare&idempotency=39231016207865"
+caddy_domain: "example.com"
+caddy_cloudflare_email: "example@example.com"
+caddy_cloudflare_token: "123456789"

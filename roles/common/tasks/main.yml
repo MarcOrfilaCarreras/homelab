@@ -1,0 +1,26 @@
+---
+- name: Update all packages to their latest version
+  ansible.builtin.apt:
+    name: "*"
+    update_cache: true
+    state: latest
+
+- name: Update SSH configuration
+  ansible.builtin.include_tasks: ssh.yml
+  when: ssh | default(False)
+
+- name: Update UFW configuration
+  ansible.builtin.include_tasks: ufw.yml
+  when: ufw | default(False)
+
+- name: Install Docker and Docker-Compose
+  ansible.builtin.package:
+    name:
+      - docker.io
+      - docker-compose
+    state: latest
+  when: docker | default(False)
+
+- name: Deploy Caddy
+  ansible.builtin.include_tasks: caddy.yml
+  when: caddy | default(False)

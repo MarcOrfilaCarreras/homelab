@@ -1,0 +1,74 @@
+---
+- name: Deploy Proxmox Homelab Container
+  hosts: localhost
+  gather_facts: false
+  pre_tasks:
+    - name: Include vars from vars.yml
+      ansible.builtin.include_vars:
+        file: vars.yml
+  roles:
+    - role: proxmox
+      vars:
+        proxmox_node: "{{ proxmox_node }}"
+        proxmox_container_id: "{{ proxmox_container_id }}"
+        proxmox_container_name: "{{ proxmox_container_name }}"
+        proxmox_container_description: "{{ proxmox_container_description }}"
+        
+        proxmox_container_template: "{{ proxmox_container_template }}"
+        password: "{{ proxmox_container_password }}"
+
+        proxmox_container_cores: "{{ proxmox_container_cores }}"
+
+        proxmox_api_host: "{{ proxmox_api_host }}"
+        proxmox_api_user: "{{ proxmox_api_user }}"
+        proxmox_api_token_id: "{{ proxmox_api_token_id }}"
+        proxmox_api_token_secret: "{{ proxmox_api_token_secret }}"
+  post_tasks:
+    - name: Add host to group 'proxmox'
+      ansible.builtin.add_host:
+        name: "{{ proxmox_container_name }}"
+        groups: "proxmox"
+        ansible_user: "{{ proxmox_container_user }}"
+        ansible_password: "{{ proxmox_container_password }}"
+
+- name: Run Other Roles
+  hosts: proxmox
+  gather_facts: false
+  pre_tasks:
+    - name: Include vars from vars.yml
+      ansible.builtin.include_vars:
+        file: vars.yml
+    
+    - name: Set alternative SSH port and user if the initial connection fails
+      ansible.builtin.set_fact:
+        ansible_user: "{{ ssh_user }}"
+        ansible_port: "{{ ssh_port }}"
+      ignore_errors: true
+  roles:
+    - role: common
+      become: true
+      vars:
+        ssh: "{{ ssh }}"
+        ssh_user: "{{ ssh_user }}"
+        ssh_password: "{{ ssh_password }}"
+        ssh_public_key: "{{ ssh_public_key }}"
+
+        ufw: "{{ ufw }}"
+
+        docker: "{{ docker }}"
+
+        caddy: "{{ caddy }}"
+        caddy_domain: "{{ caddy_domain }}"
+        caddy_cloudflare_email: "{{ caddy_cloudflare_email }}"
+        caddy_cloudflare_token: "{{ caddy_cloudflare_token }}"
+    
+    - role: docker
+      become: true
+      vars:
+        docker_user_uid: "{{ docker_user_uid }}"
+        docker_user_gid: "{{ docker_user_gid }}"
+        docker_tz: "{{ docker_tz }}"
+
+        filebrowser: "{{ filebrowser }}"
+        transmission: "{{ transmission }}"
+        homarr: "{{ homarr }}"

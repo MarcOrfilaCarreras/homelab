@@ -1,0 +1,26 @@
+---
+- name: Creates Database directory
+  ansible.builtin.file:
+    path: /opt/docker/filebrowser/database
+    state: directory
+
+- name: Creates Config directory
+  ansible.builtin.file:
+    path: /opt/docker/filebrowser/config
+    state: directory
+
+- name: Deploy Filebrowser
+  community.docker.docker_container:
+    name: filebrowser
+    recreate: yes
+    image: filebrowser/filebrowser:s6
+    ports:
+      - "127.0.0.1:9000:80"
+    env:
+      PUID: "{{ docker_user_uid }}"
+      PGID: "{{ docker_user_gid }}"
+    volumes:
+      - /opt/docker:/srv
+      - /opt/docker/filebrowser/database:/database
+      - /opt/docker/filebrowser/config:/config
+    restart_policy: always

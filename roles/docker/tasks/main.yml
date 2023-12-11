@@ -1,0 +1,16 @@
+- name: Creates directory
+  ansible.builtin.file:
+    path: /opt/docker
+    state: directory
+
+- name: Deploy Filebrowser
+  ansible.builtin.include_tasks: filebrowser.yml
+  when: filebrowser | default(False)
+
+- name: Deploy Transmission
+  ansible.builtin.include_tasks: transmission.yml
+  when: transmission | default(False)
+
+- name: Deploy Homarr
+  ansible.builtin.include_tasks: homarr.yml
+  when: homarr | default(False)

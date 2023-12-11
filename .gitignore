@@ -1,11 +1,2 @@
-hosts/production.json
-production.json
-
-vars/vars.json
-vars/main.json
-vars.json
-main.json
-
-.dccache
-.json
-.secrets
+# Custom files
+vars.yml
