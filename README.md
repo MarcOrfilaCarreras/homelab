@@ -55,8 +55,6 @@ This repository contains all my Ansible playbooks I use to setup my personal hom
 
 And more on the way ...
 
-<br>
-
 ## Dependencies
 ### Python
 
@@ -66,8 +64,6 @@ And more on the way ...
 
 - community.general.docker_container
 - community.general.proxmox
-
-<br>
 
 
 ## License
