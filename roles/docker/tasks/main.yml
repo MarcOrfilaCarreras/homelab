@@ -14,3 +14,7 @@
 - name: Deploy Homarr
   ansible.builtin.include_tasks: homarr.yml
   when: homarr | default(False)
+
+- name: Deploy Pi-Hole
+  ansible.builtin.include_tasks: pihole.yml
+  when: pihole | default(False)

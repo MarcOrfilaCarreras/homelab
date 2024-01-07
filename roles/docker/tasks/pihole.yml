@@ -1,0 +1,49 @@
+---
+- name: Set DNS server
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: "#DNS="
+    line: "DNS=1.1.1.1"
+    state: present
+    backup: yes
+
+- name: Disable DNSStubListener
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: "#DNSStubListener=yes"
+    line: "DNSStubListener=no"
+    state: present
+    backup: yes
+
+- name: Restart systemd-resolved.service
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: yes
+    name: systemd-resolved.service
+
+- name: Creates Config directory
+  ansible.builtin.file:
+    path: /opt/docker/pihole/config
+    state: directory
+
+- name: Creates Dnsmasq directory
+  ansible.builtin.file:
+    path: /opt/docker/pihole/dnsmasq
+    state: directory
+
+- name: Deploy Pi-Hole
+  community.docker.docker_container:
+    name: pihole
+    recreate: yes
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "127.0.0.1:9002:80/tcp"
+    volumes:
+      - /opt/docker/pihole/config:/etc/pihole
+      - /opt/docker/pihole/dnsmasq:/etc/dnsmasq.d
+    env:
+      TZ: "{{ docker_tz }}"
+      WEBPASSWORD: "{{ pihole_password }}"
+    restart_policy: always

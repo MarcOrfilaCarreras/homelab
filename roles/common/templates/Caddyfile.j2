@@ -15,3 +15,7 @@ https://filebrowser.{{ caddy_domain }} {
 https://transmission.{{ caddy_domain }} {
         reverse_proxy 127.0.0.1:9001
 }
+
+https://pihole.{{ caddy_domain }} {
+        reverse_proxy 127.0.0.1:9002
+}

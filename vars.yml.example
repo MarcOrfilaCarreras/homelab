@@ -39,3 +39,6 @@ docker_tz: "PLACEHOLDER_DOCKER_TZ"
 filebrowser: true
 transmission: true
 homarr: true
+
+pihole: true
+pihole_password: "PLACEHOLDER_PIHOLE_PASSWORD"
