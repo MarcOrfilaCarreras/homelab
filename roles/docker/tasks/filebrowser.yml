@@ -23,4 +23,8 @@
       - /opt/docker:/srv
       - /opt/docker/filebrowser/database:/database
       - /opt/docker/filebrowser/config:/config
+    labels:
+      flame.type: "application"
+      flame.name: "FileBrowser"
+      flame.url: "https://filebrowser.{{ caddy_domain }}"
     restart_policy: always

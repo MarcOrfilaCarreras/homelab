@@ -1,0 +1,21 @@
+---
+- name: Creates Data directory
+  ansible.builtin.file:
+    path: /opt/docker/flame/data
+    state: directory
+
+- name: Deploy Flame
+  community.docker.docker_container:
+    name: flame
+    recreate: yes
+    image: pawelmalak/flame:multiarch
+    ports:
+      - "127.0.0.1:9999:5005"
+    volumes:
+      - /opt/docker/flame/data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      flame.type: "application"
+      flame.name: "Flame"
+      flame.url: "https://flame.{{ caddy_domain }}"
+    restart_policy: always

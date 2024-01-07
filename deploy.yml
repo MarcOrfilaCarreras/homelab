@@ -71,7 +71,7 @@
 
         filebrowser: "{{ filebrowser }}"
         transmission: "{{ transmission }}"
-        homarr: "{{ homarr }}"
+        flame: "{{ flame }}"
         
         pihole: "{{ pihole }}"
         pihole_password: "{{ pihole_password }}"

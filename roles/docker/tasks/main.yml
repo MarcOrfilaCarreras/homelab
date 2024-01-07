@@ -11,9 +11,9 @@
   ansible.builtin.include_tasks: transmission.yml
   when: transmission | default(False)
 
-- name: Deploy Homarr
-  ansible.builtin.include_tasks: homarr.yml
-  when: homarr | default(False)
+- name: Deploy Flame
+  ansible.builtin.include_tasks: flame.yml
+  when: flame | default(False)
 
 - name: Deploy Pi-Hole
   ansible.builtin.include_tasks: pihole.yml

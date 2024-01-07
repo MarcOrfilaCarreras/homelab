@@ -31,4 +31,8 @@
       - /opt/docker/transmission/config:/config
       - /opt/docker/transmission/downloads:/downloads
       - /opt/docker/transmission/watch:/watch
+    labels:
+      flame.type: "application"
+      flame.name: "Transmission"
+      flame.url: "https://transmission.{{ caddy_domain }}"
     restart_policy: always

@@ -46,4 +46,8 @@
     env:
       TZ: "{{ docker_tz }}"
       WEBPASSWORD: "{{ pihole_password }}"
+    labels:
+      flame.type: "application"
+      flame.name: "Pi-Hole"
+      flame.url: "https://pihole.{{ caddy_domain }}"
     restart_policy: always
