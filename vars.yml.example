@@ -1,44 +1,59 @@
 # Proxmox
-proxmox_node: "PLACEHOLDER_NODE"
-proxmox_container_id: 110
-proxmox_container_name: "PLACEHOLDER_CONTAINER_NAME"
-proxmox_container_description: "PLACEHOLDER_CONTAINER_DESCRIPTION"
+proxmox_node: "your_proxmox_node"
 
-proxmox_container_template: "PLACEHOLDER_TEMPLATE"
-proxmox_container_user: "PLACEHOLDER_USER"
-proxmox_container_password: "PLACEHOLDER_PASSWORD"
+proxmox_api_host: "your_proxmox_api_host"
+proxmox_api_user: "your_proxmox_api_user"
+proxmox_api_token_id: "your_proxmox_api_token_id"
+proxmox_api_token_secret: "your_proxmox_api_token_secret"
 
-proxmox_container_cores: 2
+## Homelab container
+homelab_container_id: 110
+homelab_container_name: "homelab-ansible"
+homelab_container_description: ""
 
-proxmox_api_host: "PLACEHOLDER_API_HOST"
-proxmox_api_user: "PLACEHOLDER_API_USER"
-proxmox_api_token_id: "PLACEHOLDER_API_TOKEN_ID"
-proxmox_api_token_secret: "PLACEHOLDER_API_TOKEN_SECRET"
+homelab_container_template: "your_homelab_container_template"
+homelab_container_user: "your_homelab_container_user"
+homelab_container_password: "your_homelab_container_password"
+
+homelab_container_cores: 2
+
+## Tailscale container
+tailscale_container_id: 111
+tailscale_container_name: "tailscale-ansible"
+tailscale_container_description: ""
+
+tailscale_container_template: "your_tailscale_container_template"
+tailscale_container_user: "your_tailscale_container_user"
+tailscale_container_password: "your_tailscale_container_password"
+
+tailscale_container_cores: 2
+
+tailscale_auth_key: "your_tailscale_auth_key"
 
 # Common role
 ssh: true
-ssh_user: "PLACEHOLDER_SSH_USER"
-ssh_port: 717
-ssh_password: "PLACEHOLDER_SSH_PASSWORD"  # openssl passwd
-ssh_public_key: "PLACEHOLDER_SSH_PUBLIC_KEY"
+ssh_user: "your_ssh_user"
+ssh_port: your_ssh_port
+ssh_password: "your_ssh_password"  # openssl passwd
+ssh_public_key: "your_ssh_public_key"
 
 ufw: true
 
 docker: true
 
 caddy: true
-caddy_domain: "PLACEHOLDER_CADDY_DOMAIN"
-caddy_cloudflare_email: "PLACEHOLDER_CLOUDFLARE_EMAIL"
-caddy_cloudflare_token: "PLACEHOLDER_CLOUDFLARE_TOKEN"
+caddy_domain: "your_caddy_domain"
+caddy_cloudflare_email: "your_cloudflare_email"
+caddy_cloudflare_token: "your_cloudflare_token"
 
 # Docker role
-docker_user_uid: "PLACEHOLDER_DOCKER_UID"
-docker_user_gid: "PLACEHOLDER_DOCKER_GID"
-docker_tz: "PLACEHOLDER_DOCKER_TZ"
+docker_user_uid: "your_docker_user_uid"
+docker_user_gid: "your_docker_user_gid"
+docker_tz: "your_docker_tz"
 
 filebrowser: true
 transmission: true
 flame: true
 
 pihole: true
-pihole_password: "PLACEHOLDER_PIHOLE_PASSWORD"
+pihole_password: "your_pihole_password"

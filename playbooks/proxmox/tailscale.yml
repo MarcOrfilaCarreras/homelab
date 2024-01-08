@@ -1,0 +1,39 @@
+---
+- name: Deploy Proxmox Tailscale Container
+  hosts: localhost
+  gather_facts: false
+  pre_tasks:
+    - name: Include vars from vars.yml
+      ansible.builtin.include_vars:
+        file: ../../vars.yml
+  roles:
+    - role: ./roles/proxmox
+      vars:
+        node: "{{ proxmox_node }}"
+        container_id: "{{ tailscale_container_id }}"
+        container_name: "{{ tailscale_container_name }}"
+        container_description: "{{ tailscale_container_description }}"
+        
+        container_template: "{{ tailscale_container_template }}"
+        container_password: "{{ tailscale_container_password }}"
+
+        container_cores: "{{ tailscale_container_cores }}"
+        
+        api_host: "{{ proxmox_api_host }}"
+        api_user: "{{ proxmox_api_user }}"
+        api_token_id: "{{ proxmox_api_token_id }}"
+        api_token_secret: "{{ proxmox_api_token_secret }}"
+  post_tasks:
+    - name: Add host to group 'proxmox'
+      ansible.builtin.add_host:
+        name: "{{ tailscale_container_name }}"
+        groups: "proxmox"
+        ansible_user: "{{ tailscale_container_user }}"
+        ansible_password: "{{ tailscale_container_password }}"
+    
+    - name: Add host to group 'tailscale'
+      ansible.builtin.add_host:
+        name: "{{ tailscale_container_name }}"
+        groups: "tailscale"
+        ansible_user: "{{ tailscale_container_user }}"
+        ansible_password: "{{ tailscale_container_password }}"

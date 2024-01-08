@@ -1,7 +1,7 @@
 - name: Start Proxmox LXC Container
   community.general.proxmox:
-    node: "{{ proxmox_node }}"
-    vmid: "{{ proxmox_container_id }}"
+    node: "{{ node }}"
+    vmid: "{{ container_id }}"
     state: "started"
     
     validate_certs: false

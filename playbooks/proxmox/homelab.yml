@@ -1,0 +1,39 @@
+---
+- name: Deploy Proxmox Homelab Container
+  hosts: localhost
+  gather_facts: false
+  pre_tasks:
+    - name: Include vars from vars.yml
+      ansible.builtin.include_vars:
+        file: ../../vars.yml
+  roles:
+    - role: ./roles/proxmox
+      vars:
+        node: "{{ proxmox_node }}"
+        container_id: "{{ homelab_container_id }}"
+        container_name: "{{ homelab_container_name }}"
+        container_description: "{{ homelab_container_description }}"
+        
+        container_template: "{{ homelab_container_template }}"
+        container_password: "{{ homelab_container_password }}"
+
+        container_cores: "{{ homelab_container_cores }}"
+
+        api_host: "{{ proxmox_api_host }}"
+        api_user: "{{ proxmox_api_user }}"
+        api_token_id: "{{ proxmox_api_token_id }}"
+        api_token_secret: "{{ proxmox_api_token_secret }}"
+  post_tasks:
+    - name: Add host to group 'proxmox'
+      ansible.builtin.add_host:
+        name: "{{ homelab_container_name }}"
+        groups: "proxmox"
+        ansible_user: "{{ homelab_container_user }}"
+        ansible_password: "{{ homelab_container_password }}"
+    
+    - name: Add host to group 'homelab'
+      ansible.builtin.add_host:
+        name: "{{ homelab_container_name }}"
+        groups: "homelab"
+        ansible_user: "{{ homelab_container_user }}"
+        ansible_password: "{{ homelab_container_password }}"

@@ -1,63 +1,46 @@
----
-- name: Deploy Proxmox Homelab Container
-  hosts: localhost
-  gather_facts: false
-  pre_tasks:
-    - name: Include vars from vars.yml
-      ansible.builtin.include_vars:
-        file: vars.yml
-  roles:
-    - role: proxmox
-      vars:
-        proxmox_node: "{{ proxmox_node }}"
-        proxmox_container_id: "{{ proxmox_container_id }}"
-        proxmox_container_name: "{{ proxmox_container_name }}"
-        proxmox_container_description: "{{ proxmox_container_description }}"
-        
-        proxmox_container_template: "{{ proxmox_container_template }}"
-        password: "{{ proxmox_container_password }}"
+# Playbooks
+- name: Include Homelab container
+  ansible.builtin.import_playbook: playbooks/proxmox/homelab.yml
 
-        proxmox_container_cores: "{{ proxmox_container_cores }}"
+- name: Include Tailscale container
+  ansible.builtin.import_playbook: playbooks/proxmox/tailscale.yml
 
-        proxmox_api_host: "{{ proxmox_api_host }}"
-        proxmox_api_user: "{{ proxmox_api_user }}"
-        proxmox_api_token_id: "{{ proxmox_api_token_id }}"
-        proxmox_api_token_secret: "{{ proxmox_api_token_secret }}"
-  post_tasks:
-    - name: Add host to group 'proxmox'
-      ansible.builtin.add_host:
-        name: "{{ proxmox_container_name }}"
-        groups: "proxmox"
-        ansible_user: "{{ proxmox_container_user }}"
-        ansible_password: "{{ proxmox_container_password }}"
+- name: Include vars
+  ansible.builtin.import_playbook: playbooks/include_vars.yml
 
-- name: Run Other Roles
+- name: Run pre-check
+  ansible.builtin.import_playbook: playbooks/pre_check.yml
+
+# Roles
+## Proxmox
+- name: Run Common Roles
   hosts: proxmox
   gather_facts: false
-  pre_tasks:
-    - name: Include vars from vars.yml
-      ansible.builtin.include_vars:
-        file: vars.yml
-    
-    - name: Set alternative SSH port and user if the initial connection fails
-      ansible.builtin.set_fact:
-        ansible_user: "{{ ssh_user }}"
-        ansible_port: "{{ ssh_port }}"
-      ignore_errors: true
   roles:
     - role: common
       become: true
       vars:
-        ssh: "{{ ssh }}"
+        ssh_config: "{{ ssh }}"
         ssh_user: "{{ ssh_user }}"
         ssh_password: "{{ ssh_password }}"
         ssh_public_key: "{{ ssh_public_key }}"
 
-        ufw: "{{ ufw }}"
+        ufw_config: "{{ ufw }}"
 
-        docker: "{{ docker }}"
+- name: Run pre-check
+  ansible.builtin.import_playbook: playbooks/pre_check.yml
 
-        caddy: "{{ caddy }}"
+## Homelab
+- name: Run Homelab Roles
+  hosts: homelab
+  gather_facts: false
+  roles:
+    - role: common
+      become: true
+      vars:
+        docker_config: "{{ docker }}"
+
+        caddy_config: "{{ caddy }}"
         caddy_domain: "{{ caddy_domain }}"
         caddy_cloudflare_email: "{{ caddy_cloudflare_email }}"
         caddy_cloudflare_token: "{{ caddy_cloudflare_token }}"
@@ -75,3 +58,13 @@
         
         pihole: "{{ pihole }}"
         pihole_password: "{{ pihole_password }}"
+
+## Tailscale
+- name: Run Tailscale Role
+  hosts: tailscale
+  gather_facts: true
+  roles:
+    - role: tailscale
+      become: true
+      vars:
+        auth_key: "{{ tailscale_auth_key }}"

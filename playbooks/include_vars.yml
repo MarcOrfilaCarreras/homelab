@@ -1,0 +1,8 @@
+---
+- name: Include vars
+  hosts: proxmox
+  gather_facts: false
+  tasks:
+    - name: Include vars from vars.yml
+      ansible.builtin.include_vars:
+        file: ../vars.yml

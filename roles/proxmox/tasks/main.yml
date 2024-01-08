@@ -1,25 +1,25 @@
 - name: Create Proxmox LXC Container
   community.general.proxmox:
-    node: "{{ proxmox_node }}"
-    vmid: "{{ proxmox_container_id }}"
-    hostname: "{{ proxmox_container_name }}"
-    description: "{{ proxmox_container_description }}"
-    password: "{{ proxmox_container_password }}"
+    node: "{{ node }}"
+    vmid: "{{ container_id }}"
+    hostname: "{{ container_name }}"
+    description: "{{ container_description }}"
+    password: "{{ container_password }}"
 
-    ostemplate: "{{ proxmox_container_template }}"
-    onboot: "{{ proxmox_container_onboot }}"
+    ostemplate: "{{ container_template }}"
+    onboot: "{{ container_onboot }}"
     state: "present"
 
-    cpus: "{{ proxmox_container_cpus }}"
-    cores: "{{ proxmox_container_cores }}"
-    memory: "{{ proxmox_container_memory }}"
-    netif: '{{ proxmox_container_network }}'
-    
+    cpus: "{{ container_cpus }}"
+    cores: "{{ container_cores }}"
+    memory: "{{ container_memory }}"
+    netif: '{{ container_network }}'
+        
     validate_certs: false
-    api_host: "{{ proxmox_api_host }}"
-    api_user: "{{ proxmox_api_user }}"
-    api_token_id: "{{ proxmox_api_token_id }}"
-    api_token_secret: "{{ proxmox_api_token_secret }}"
+    api_host: "{{ api_host }}"
+    api_user: "{{ api_user }}"
+    api_token_id: "{{ api_token_id }}"
+    api_token_secret: "{{ api_token_secret }}"
 
     timeout: 600
   notify: Start Proxmox LXC Container

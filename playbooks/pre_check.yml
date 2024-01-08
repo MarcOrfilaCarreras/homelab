@@ -1,0 +1,16 @@
+---
+- name: Pre-Check containers
+  hosts: proxmox
+  gather_facts: false
+  tasks:
+    - name: Attempt to connect with default credentials
+      ansible.builtin.wait_for_connection:
+        timeout: 5
+      ignore_errors: true
+      register: default_connection_result
+
+    - name: Set alternative SSH port and user if the initial connection fails
+      ansible.builtin.set_fact:
+        ansible_user: "{{ ssh_user }}"
+        ansible_port: "{{ ssh_port }}"
+      when: default_connection_result.failed
