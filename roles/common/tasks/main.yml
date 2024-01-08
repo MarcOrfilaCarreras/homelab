@@ -7,11 +7,11 @@
 
 - name: Update SSH configuration
   ansible.builtin.include_tasks: ssh.yml
-  when: ssh | default(False)
+  when: ssh_config
 
 - name: Update UFW configuration
   ansible.builtin.include_tasks: ufw.yml
-  when: ufw | default(False)
+  when: ufw_config
 
 - name: Install Docker and Docker-Compose
   ansible.builtin.package:
@@ -19,8 +19,8 @@
       - docker.io
       - docker-compose
     state: latest
-  when: docker | default(False)
+  when: docker_config
 
 - name: Deploy Caddy
   ansible.builtin.include_tasks: caddy.yml
-  when: caddy | default(False)
+  when: caddy_config
