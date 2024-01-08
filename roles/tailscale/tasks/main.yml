@@ -1,0 +1,32 @@
+- name: Get the GPG key
+  ansible.builtin.get_url:
+    url: "https://pkgs.tailscale.com/stable/{{ ansible_distribution|lower }}/{{ ansible_distribution_release|lower }}.noarmor.gpg"
+    dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+    mode: '0644'
+    force: true
+
+- name: Get the list
+  ansible.builtin.get_url:
+    url: "https://pkgs.tailscale.com/stable/{{ ansible_distribution|lower }}/{{ ansible_distribution_release|lower }}.tailscale-keyring.list"
+    dest: /etc/apt/sources.list.d/tailscale.list
+    mode: '0644'
+    force: true
+
+- name: Install tailscale
+  ansible.builtin.package:
+    name:
+      - tailscale
+    state: latest
+    update_cache: yes
+
+- name: Append to `/etc/sysctl.conf`
+  ansible.builtin.shell: |
+    modprobe xt_mark
+    echo 'net.ipv4.ip_forward = 1' | tee -a /etc/sysctl.conf
+    echo 'net.ipv6.conf.all.forwarding = 1' | tee -a /etc/sysctl.conf
+    echo 'net.ipv6.conf.all.disable_policy = 1' | tee -a /etc/sysctl.conf
+    iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+    ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+- name: Declare exit node
+  ansible.builtin.shell: /usr/bin/tailscale up --authkey={{ auth_key }} --advertise-routes=10.0.0.0/24 --advertise-exit-node
