@@ -35,4 +35,5 @@
       flame.type: "application"
       flame.name: "Transmission"
       flame.url: "https://transmission.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
     restart_policy: always

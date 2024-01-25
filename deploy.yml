@@ -60,6 +60,7 @@
         pihole_password: "{{ pihole_password }}"
 
         jellyfin: "{{ jellyfin }}"
+        watchtower: "{{ watchtower }}"
 
 ## Tailscale
 - name: Run Tailscale Role

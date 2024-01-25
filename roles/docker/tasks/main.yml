@@ -22,3 +22,7 @@
 - name: Deploy Jellyfin
   ansible.builtin.include_tasks: jellyfin.yml
   when: jellyfin | default(False)
+
+- name: Deploy Watchtower
+  ansible.builtin.include_tasks: watchtower.yml
+  when: watchtower | default(False)

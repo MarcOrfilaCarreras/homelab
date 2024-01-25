@@ -27,4 +27,5 @@
       flame.type: "application"
       flame.name: "FileBrowser"
       flame.url: "https://filebrowser.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
     restart_policy: always

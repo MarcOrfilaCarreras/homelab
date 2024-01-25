@@ -50,4 +50,5 @@
       flame.type: "application"
       flame.name: "Pi-Hole"
       flame.url: "https://pihole.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
     restart_policy: always

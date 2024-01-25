@@ -29,4 +29,5 @@
       flame.type: "application"
       flame.name: "Jellyfin"
       flame.url: "https://jellyfin.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
     restart_policy: always

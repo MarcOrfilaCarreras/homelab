@@ -18,4 +18,5 @@
       flame.type: "application"
       flame.name: "Flame"
       flame.url: "https://flame.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
     restart_policy: always
