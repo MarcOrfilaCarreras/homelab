@@ -28,5 +28,11 @@
     iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
     ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
+- name: Append to `/etc/sysctl.d`
+  ansible.builtin.shell: |
+    echo 'net.ipv4.ip_forward = 1' | tee -a /etc/sysctl.d/99-tailscale.conf
+    echo 'net.ipv6.conf.all.forwarding = 1' | tee -a /etc/sysctl.d/99-tailscale.conf
+    sysctl -p /etc/sysctl.d/99-tailscale.conf
+
 - name: Declare exit node
   ansible.builtin.shell: /usr/bin/tailscale up --authkey={{ auth_key }} --advertise-routes=10.0.0.0/24 --advertise-exit-node
