@@ -18,3 +18,7 @@
 - name: Deploy Pi-Hole
   ansible.builtin.include_tasks: pihole.yml
   when: pihole | default(False)
+
+- name: Deploy Jellyfin
+  ansible.builtin.include_tasks: jellyfin.yml
+  when: jellyfin | default(False)

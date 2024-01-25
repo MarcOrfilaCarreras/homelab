@@ -59,10 +59,13 @@
         pihole: "{{ pihole }}"
         pihole_password: "{{ pihole_password }}"
 
+        jellyfin: "{{ jellyfin }}"
+
 ## Tailscale
 - name: Run Tailscale Role
   hosts: tailscale
   gather_facts: true
+  become: true
   roles:
     - role: tailscale
       become: true

@@ -1,0 +1,32 @@
+---
+- name: Creates Cache directory
+  ansible.builtin.file:
+    path: /opt/docker/jellyfin/cache
+    state: directory
+
+- name: Creates Media directory
+  ansible.builtin.file:
+    path: /opt/docker/jellyfin/media
+    state: directory
+
+- name: Creates Config directory
+  ansible.builtin.file:
+    path: /opt/docker/jellyfin/config
+    state: directory
+
+- name: Deploy Jellyfin
+  community.docker.docker_container:
+    name: jellyfin
+    recreate: yes
+    image: jellyfin/jellyfin:latest
+    ports:
+      - "127.0.0.1:9003:8096"
+    volumes:
+      - /opt/docker/jellyfin/config:/config
+      - /opt/docker/jellyfin/cache:/cache
+      - /opt/docker/jellyfin/media:/media
+    labels:
+      flame.type: "application"
+      flame.name: "Jellyfin"
+      flame.url: "https://jellyfin.{{ caddy_domain }}"
+    restart_policy: always
