@@ -60,3 +60,4 @@ pihole_password: "your_pihole_password"
 
 jellyfin: true
 watchtower: true
+watcharr: true

@@ -1,0 +1,21 @@
+---
+- name: Creates Config directory
+  ansible.builtin.file:
+    path: /opt/docker/watcharr/data
+    state: directory
+
+- name: Deploy Watcharr
+  community.docker.docker_container:
+    name: watcharr
+    recreate: yes
+    image: ghcr.io/sbondco/watcharr:latest
+    ports:
+      - "127.0.0.1:9004:3080"
+    volumes:
+      - /opt/docker/watcharr/data:/data
+    labels:
+      flame.type: "application"
+      flame.name: "Watcharr"
+      flame.url: "https://watcharr.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
+    restart_policy: always

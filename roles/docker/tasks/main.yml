@@ -26,3 +26,7 @@
 - name: Deploy Watchtower
   ansible.builtin.include_tasks: watchtower.yml
   when: watchtower | default(False)
+
+- name: Deploy Watcharr
+  ansible.builtin.include_tasks: watcharr.yml
+  when: watcharr | default(False)

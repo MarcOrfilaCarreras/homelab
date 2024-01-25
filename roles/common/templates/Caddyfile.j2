@@ -23,3 +23,7 @@ https://pihole.{{ caddy_domain }} {
 https://jellyfin.{{ caddy_domain }} {
         reverse_proxy 127.0.0.1:9003
 }
+
+https://watcharr.{{ caddy_domain }} {
+        reverse_proxy 127.0.0.1:9004
+}
