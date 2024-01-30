@@ -62,6 +62,8 @@
         jellyfin: "{{ jellyfin }}"
         watchtower: "{{ watchtower }}"
         watcharr: "{{ watcharr }}"
+        duplicati: "{{ duplicati }}"
+        duplicati_password: "{{ duplicati_password }}"
 
 ## Tailscale
 - name: Run Tailscale Role

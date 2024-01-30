@@ -61,3 +61,6 @@ pihole_password: "your_pihole_password"
 jellyfin: true
 watchtower: true
 watcharr: true
+
+duplicati: true
+duplicati_password: "your_duplicati_password"

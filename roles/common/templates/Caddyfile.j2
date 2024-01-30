@@ -27,3 +27,7 @@ https://jellyfin.{{ caddy_domain }} {
 https://watcharr.{{ caddy_domain }} {
         reverse_proxy 127.0.0.1:9004
 }
+
+https://duplicati.{{ caddy_domain }} {
+        reverse_proxy 127.0.0.1:9005
+}

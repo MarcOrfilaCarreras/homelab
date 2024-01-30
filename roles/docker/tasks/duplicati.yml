@@ -1,0 +1,36 @@
+---
+- name: Creates Config directory
+  ansible.builtin.file:
+    path: /opt/docker/duplicati/config
+    state: directory
+
+- name: Create Backup directory
+  ansible.builtin.file:
+    path: /opt/backups
+    state: directory
+
+- name: Deploy Duplicati
+  community.docker.docker_container:
+    name: duplicati
+    recreate: yes
+    image: lscr.io/linuxserver/duplicati:latest
+    ports:
+      - "127.0.0.1:9005:8200"
+    volumes:
+      - /opt/docker/duplicati/config:/config
+      - /opt/backups:/backups
+      - /opt/docker:/source
+    env:
+      PUID: "{{ docker_user_uid }}"
+      PGID: "{{ docker_user_gid }}"
+      TZ: "{{ docker_tz }}"
+      CLI_ARGS: " --webservice-interface=any --webservice-password={{ duplicati_password }}"
+    restart_policy: always
+    labels:
+      flame.type: "application"
+      flame.name: "Duplicati"
+      flame.url: "https://duplicati.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
+
+- ansible.builtin.pause:
+    prompt: "Press Enter when finished to continue ..."

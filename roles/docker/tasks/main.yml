@@ -3,6 +3,10 @@
     path: /opt/docker
     state: directory
 
+- name: Deploy Duplicati
+  ansible.builtin.include_tasks: duplicati.yml
+  when: duplicati | default(False)
+
 - name: Deploy Filebrowser
   ansible.builtin.include_tasks: filebrowser.yml
   when: filebrowser | default(False)
