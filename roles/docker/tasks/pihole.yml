@@ -1,4 +1,9 @@
 ---
+- name: Check if resolved.conf exists
+  ansible.builtin.stat:
+    path: /etc/systemd/resolved.conf
+  register: resolved_conf_stat
+
 - name: Set DNS server
   ansible.builtin.lineinfile:
     path: /etc/systemd/resolved.conf
@@ -6,6 +11,7 @@
     line: "DNS=1.1.1.1"
     state: present
     backup: yes
+  when: resolved_conf_stat.stat.exists
 
 - name: Disable DNSStubListener
   ansible.builtin.lineinfile:
@@ -14,12 +20,14 @@
     line: "DNSStubListener=no"
     state: present
     backup: yes
+  when: resolved_conf_stat.stat.exists
 
 - name: Restart systemd-resolved.service
   ansible.builtin.systemd:
     state: restarted
     daemon_reload: yes
     name: systemd-resolved.service
+  when: resolved_conf_stat.stat.exists
 
 - name: Creates Config directory
   ansible.builtin.file:
