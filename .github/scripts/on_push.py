@@ -1,3 +1,4 @@
+import requests
 import os, re
 
 if __name__== "__main__":
@@ -10,7 +11,14 @@ if __name__== "__main__":
     html = "<!-- Start Replace -->\n"
 
     for f in folders:
-        html += '    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/' + f.lower() + '.png" style="height: 25px"></img></td><td>' + f.capitalize() + '</td></tr> \n'
+        image_url = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/" + f.lower() + ".png"
+
+        request = requests.get(image_url)
+
+        if request.status_code != 200:
+            image_url = "https://static.vecteezy.com/system/resources/previews/019/617/157/original/container-isometric-symbol-png.png"
+
+        html += '    <tr><td><img src="' + image_url + '" style="height: 25px"></img></td><td>' + f.capitalize() + '</td></tr> \n'
     
     html += "<!-- End Replace -->"
 
