@@ -64,3 +64,10 @@ watcharr: true
 
 duplicati: true
 duplicati_password: "your_duplicati_password"
+
+twitch_channel_points_miner_v2: true
+twitch_channel_points_miner_v2_username: "your_twitch_username"
+twitch_channel_points_miner_v2_password: "your_twitch_password"
+twitch_channel_points_miner_v2_channels:
+    - your_twitch_channels
+    - your_twitch_channels

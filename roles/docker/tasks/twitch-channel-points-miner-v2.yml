@@ -1,0 +1,44 @@
+---
+- name: Creates Analytics directory
+  ansible.builtin.file:
+    path: /opt/docker/twitch-channel-points-miner-v2/analytics
+    state: directory
+
+- name: Creates Cookies directory
+  ansible.builtin.file:
+    path: /opt/docker/twitch-channel-points-miner-v2/cookies
+    state: directory
+
+- name: Creates Logs directory
+  ansible.builtin.file:
+    path: /opt/docker/twitch-channel-points-miner-v2/logs
+    state: directory
+
+- name: Create run.py file
+  ansible.builtin.template:
+    src: ../templates/twitch-channel-points-miner-v1-config.py.j2
+    dest: /opt/docker/twitch-channel-points-miner-v2/run.py
+    owner: "{{ docker_user_uid }}"
+    group: "{{ docker_user_gid }}"
+    mode: '0774'
+
+- name: Deploy Twitch Channel Points Miner v2
+  community.docker.docker_container:
+    name: twitch-channel-points-miner-v2
+    recreate: yes
+    image: rdavidoff/twitch-channel-points-miner-v2:latest
+    ports:
+      - "127.0.0.1:9006:5000"
+    env:
+      TERM: "xterm-256color"
+    volumes:
+      - /opt/docker/twitch-channel-points-miner-v2/logs/analytics:/usr/src/app/analytics
+      - /opt/docker/twitch-channel-points-miner-v2/cookies:/usr/src/app/cookies
+      - /opt/docker/twitch-channel-points-miner-v2/logs:/usr/src/app/logs
+      - /opt/docker/twitch-channel-points-miner-v2/run.py:/usr/src/app/run.py:ro
+    labels:
+      flame.type: "application"
+      flame.name: "Twitch Channel Points Miner v2"
+      flame.url: "https://twitch-miner.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
+    restart_policy: always

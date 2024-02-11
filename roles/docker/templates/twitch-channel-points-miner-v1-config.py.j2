@@ -1,0 +1,85 @@
+# -*- coding: utf-8 -*-
+
+import logging
+from colorama import Fore
+from TwitchChannelPointsMiner import TwitchChannelPointsMiner
+from TwitchChannelPointsMiner.logger import LoggerSettings, ColorPalette
+from TwitchChannelPointsMiner.classes.Chat import ChatPresence
+from TwitchChannelPointsMiner.classes.Discord import Discord
+from TwitchChannelPointsMiner.classes.Webhook import Webhook
+from TwitchChannelPointsMiner.classes.Telegram import Telegram
+from TwitchChannelPointsMiner.classes.Matrix import Matrix
+from TwitchChannelPointsMiner.classes.Pushover import Pushover
+from TwitchChannelPointsMiner.classes.Settings import Priority, Events, FollowersOrder
+from TwitchChannelPointsMiner.classes.entities.Bet import Strategy, BetSettings, Condition, OutcomeKeys, FilterCondition, DelayMode
+from TwitchChannelPointsMiner.classes.entities.Streamer import Streamer, StreamerSettings
+
+twitch_miner = TwitchChannelPointsMiner(
+    username = "{{ twitch_channel_points_miner_v2_username }}",
+    password = "{{ twitch_channel_points_miner_v2_password }}",
+    claim_drops_startup = True,
+    priority = [
+        Priority.STREAK,
+        Priority.DROPS,
+        Priority.ORDER
+    ],
+    enable_analytics = True,
+    disable_ssl_cert_verification=False,
+    disable_at_in_nickname=False,
+    logger_settings = LoggerSettings(
+        save = True,
+        console_level = logging.INFO,
+        console_username = False,
+        auto_clear = True,
+        time_zone = "",
+        file_level = logging.DEBUG,
+        emoji = False,
+        less = True,
+        colored = False,
+        color_palette = ColorPalette(
+            STREAMER_online = "GREEN",
+            streamer_offline = "red",
+            BET_wiN = Fore.MAGENTA
+        ),
+        telegram = None,
+        discord = None,
+        webhook = None,
+        matrix = None,
+        pushover = None                                
+    ),
+    streamer_settings = StreamerSettings(
+        make_predictions = False,
+        follow_raid = True,
+        claim_drops = True,
+        claim_moments = True,
+        watch_streak = True,
+        chat = ChatPresence.ONLINE,
+        bet = BetSettings(
+            strategy = Strategy.SMART,
+            percentage = 5,
+            percentage_gap = 20,
+            max_points = 50000,
+            stealth_mode = True,
+            delay_mode = DelayMode.FROM_END,
+            delay = 6,
+            minimum_points = 20000,
+            filter_condition = FilterCondition(
+                by = OutcomeKeys.TOTAL_USERS,
+                where = Condition.LTE,
+                value = 800
+            )
+        )
+    )
+)
+
+twitch_miner.analytics(host = "0.0.0.0", port = 5000, refresh = 5, days_ago = 7)
+
+twitch_miner.mine(
+    [
+        {% for channel in twitch_channel_points_miner_v2_channels %}
+            "{{ channel }}"{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ],
+    followers = False,
+    followers_order = FollowersOrder.ASC
+)

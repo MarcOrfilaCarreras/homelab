@@ -34,3 +34,7 @@
 - name: Deploy Watcharr
   ansible.builtin.include_tasks: watcharr.yml
   when: watcharr | default(False)
+
+- name: Deploy Twitch Channel Points Miner v2
+  ansible.builtin.include_tasks: twitch-channel-points-miner-v2.yml
+  when: twitch_channel_points_miner_v2 | default(False)
