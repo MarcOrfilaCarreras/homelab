@@ -38,3 +38,7 @@
 - name: Deploy Twitch Channel Points Miner v2
   ansible.builtin.include_tasks: twitch-channel-points-miner-v2.yml
   when: twitch_channel_points_miner_v2 | default(False)
+
+- name: Deploy Amule
+  ansible.builtin.include_tasks: amule.yml
+  when: amule | default(False)

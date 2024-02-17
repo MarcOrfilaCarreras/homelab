@@ -71,3 +71,5 @@ twitch_channel_points_miner_v2_password: "your_twitch_password"
 twitch_channel_points_miner_v2_channels:
     - your_twitch_channels
     - your_twitch_channels
+
+amule: true

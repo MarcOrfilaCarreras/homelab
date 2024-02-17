@@ -1,0 +1,45 @@
+---
+- name: Creates Config directory
+  ansible.builtin.file:
+    path: /opt/docker/amule/config
+    state: directory
+
+- name: Creates Incompleted directory
+  ansible.builtin.file:
+    path: /opt/docker/amule/incompleted
+    state: directory
+
+- name: Creates Completed directory
+  ansible.builtin.file:
+    path: /opt/docker/amule/completed
+    state: directory
+
+- name: Deploy Amule
+  community.docker.docker_container:
+    name: amule
+    recreate: yes
+    image: ngosang/amule
+    ports:
+      - "127.0.0.1:9007:4711"
+    volumes:
+      - /opt/docker/amule/config:/home/amule/.aMule
+      - /opt/docker/amule/incompleted:/incoming
+      - /opt/docker/amule/completed:/temp
+    env:
+      PUID: "{{ docker_user_uid }}"
+      PGID: "{{ docker_user_gid }}"
+      TZ: "{{ docker_tz }}"
+      GUI_PWD: "123456"
+      WEBUI_PWD: "123456"
+      MOD_AUTO_RESTART_ENABLED: "true"
+      MOD_AUTO_RESTART_CRON: "0 6 * * *"
+      MOD_AUTO_SHARE_ENABLED: "false"
+      MOD_AUTO_SHARE_DIRECTORIES: "/incoming;/my_movies"
+      MOD_FIX_KAD_GRAPH_ENABLED: "true"
+      MOD_FIX_KAD_BOOTSTRAP_ENABLED: "true"
+    labels:
+      flame.type: "application"
+      flame.name: "Amule"
+      flame.url: "https://amule.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
+    restart_policy: always

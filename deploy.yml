@@ -65,6 +65,7 @@
         duplicati: "{{ duplicati }}"
         duplicati_password: "{{ duplicati_password }}"
         twitch_channel_points_miner_v2: "{{ twitch_channel_points_miner_v2 }}"
+        amule: "{{ amule }}"
 
 ## Tailscale
 - name: Run Tailscale Role
