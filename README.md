@@ -30,12 +30,15 @@ Welcome to my personal homelab setup! This repository houses all the Ansible pla
     </tr>
     <!-- Start Replace -->
     <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/transmission.png" style="height: 25px"></img></td><td>Transmission</td></tr> 
-    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/pihole.png" style="height: 25px"></img></td><td>Pihole</td></tr> 
-    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/watcharr.png" style="height: 25px"></img></td><td>Watcharr</td></tr> 
-    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/watchtower.png" style="height: 25px"></img></td><td>Watchtower</td></tr> 
+    <tr><td><img src="https://static.vecteezy.com/system/resources/previews/019/617/157/original/container-isometric-symbol-png.png" style="height: 25px"></img></td><td>Pihole</td></tr> 
+    <tr><td><img src="https://static.vecteezy.com/system/resources/previews/019/617/157/original/container-isometric-symbol-png.png" style="height: 25px"></img></td><td>Twitch-channel-points-miner-v2</td></tr> 
     <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/jellyfin.png" style="height: 25px"></img></td><td>Jellyfin</td></tr> 
-    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/flame.png" style="height: 25px"></img></td><td>Flame</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/watchtower.png" style="height: 25px"></img></td><td>Watchtower</td></tr> 
     <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/filebrowser.png" style="height: 25px"></img></td><td>Filebrowser</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/flame.png" style="height: 25px"></img></td><td>Flame</td></tr> 
+    <tr><td><img src="https://static.vecteezy.com/system/resources/previews/019/617/157/original/container-isometric-symbol-png.png" style="height: 25px"></img></td><td>Amule</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/watcharr.png" style="height: 25px"></img></td><td>Watcharr</td></tr> 
+    <tr><td><img src="https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/duplicati.png" style="height: 25px"></img></td><td>Duplicati</td></tr> 
 <!-- End Replace -->
 </table>
 
