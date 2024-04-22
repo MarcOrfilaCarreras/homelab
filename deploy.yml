@@ -1,10 +1,4 @@
 # Playbooks
-- name: Include Homelab container
-  ansible.builtin.import_playbook: playbooks/proxmox/homelab.yml
-
-- name: Include Tailscale container
-  ansible.builtin.import_playbook: playbooks/proxmox/tailscale.yml
-
 - name: Include vars
   ansible.builtin.import_playbook: playbooks/include_vars.yml
 
@@ -12,9 +6,9 @@
   ansible.builtin.import_playbook: playbooks/pre_check.yml
 
 # Roles
-## Proxmox
+## Servers
 - name: Run Common Roles
-  hosts: proxmox
+  hosts: servers
   gather_facts: false
   roles:
     - role: common
@@ -66,6 +60,7 @@
         duplicati_password: "{{ duplicati_password }}"
         twitch_channel_points_miner_v2: "{{ twitch_channel_points_miner_v2 }}"
         amule: "{{ amule }}"
+        registry: "{{ registry }}"
 
 ## Tailscale
 - name: Run Tailscale Role

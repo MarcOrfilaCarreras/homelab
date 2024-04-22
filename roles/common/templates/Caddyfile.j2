@@ -1,5 +1,5 @@
 {
-        acme_ca https://acme-v02.api.letsencrypt.org/directory
+        acme_ca https://api.buypass.com/acme/directory
         email {{ caddy_cloudflare_email }}
         acme_dns cloudflare {{ caddy_cloudflare_token }}
 }
@@ -38,4 +38,8 @@ https://twitch-miner.{{ caddy_domain }} {
 
 https://amule.{{ caddy_domain }} {
         reverse_proxy 127.0.0.1:9007
+}
+
+https://registry.{{ caddy_domain }} {
+        reverse_proxy 127.0.0.1:9008
 }

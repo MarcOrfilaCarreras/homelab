@@ -1,6 +1,6 @@
 ---
 - name: Pre-Check containers
-  hosts: proxmox
+  hosts: servers
   gather_facts: false
   tasks:
     - name: Attempt to connect with default credentials

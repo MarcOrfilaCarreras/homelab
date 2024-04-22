@@ -1,6 +1,6 @@
 ---
 - name: Include vars
-  hosts: proxmox
+  hosts: servers
   gather_facts: false
   tasks:
     - name: Include vars from vars.yml
