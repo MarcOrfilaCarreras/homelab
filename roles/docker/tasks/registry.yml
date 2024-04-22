@@ -1,0 +1,23 @@
+---
+- name: Creates Data directory
+  ansible.builtin.file:
+    path: /opt/docker/registry/data
+    state: directory
+
+- name: Deploy Registry
+  community.docker.docker_container:
+    name: registry
+    recreate: yes
+    image: registry:2
+    ports:
+      - "127.0.0.1:9008:5000"
+    volumes:
+      - /opt/docker/registry/data:/var/lib/registry
+    env:
+      REGISTRY_HTTP_ADDR=0.0.0.0:5000
+    labels:
+      flame.type: "application"
+      flame.name: "Registry"
+      flame.url: "https://registry.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
+    restart_policy: always

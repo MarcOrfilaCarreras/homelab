@@ -42,3 +42,7 @@
 - name: Deploy Amule
   ansible.builtin.include_tasks: amule.yml
   when: amule | default(False)
+
+- name: Deploy Registry
+  ansible.builtin.include_tasks: registry.yml
+  when: registry | default(False)
