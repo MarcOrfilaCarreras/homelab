@@ -1,0 +1,37 @@
+---
+- name: Creates Files directory
+  ansible.builtin.file:
+    path: /opt/docker/vikunja/files
+    state: directory
+
+- name: Creates DB directory
+  ansible.builtin.file:
+    path: /opt/docker/vikunja/db
+    state: directory
+
+- name: Create vikunja.db file
+  ansible.builtin.file:
+    path: /opt/docker/vikunja/db/vikunja.db
+    state: touch
+    owner: "{{ docker_user_uid }}"
+    group: "{{ docker_user_gid }}"
+    mode: "0644"
+
+- name: Deploy Vikunja
+  community.docker.docker_container:
+    name: vikunja
+    recreate: yes
+    image: vikunja/vikunja:latest
+    ports:
+      - "127.0.0.1:9009:3456"
+    env:
+      PUID: "{{ docker_user_uid }}"
+      PGID: "{{ docker_user_gid }}"
+      VIKUNJA_SERVICE_JWTSECRET: "{{ vikunja_jwt_token }}"
+      VIKUNJA_SERVICE_PUBLICURL: https://vikunja.{{ caddy_domain }}
+      VIKUNJA_DATABASE_PATH: /db/vikunja.db
+      VIKUNJA_SERVICE_ENABLEREGISTRATION: "false"
+    volumes:
+      - /opt/docker/vikunja/files:/app/vikunja/files
+      - /opt/docker/vikunja/db:/db
+    restart_policy: always

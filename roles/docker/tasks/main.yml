@@ -46,3 +46,7 @@
 - name: Deploy Registry
   ansible.builtin.include_tasks: registry.yml
   when: registry | default(False)
+
+- name: Deploy Vikunja
+  ansible.builtin.include_tasks: vikunja.yml
+  when: vikunja | default(False)

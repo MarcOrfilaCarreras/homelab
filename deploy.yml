@@ -62,6 +62,9 @@
         amule: "{{ amule }}"
         registry: "{{ registry }}"
 
+        vikunja: "{{ vikunja }}"
+        vikunja_jwt_token: "{{ vikunja_jwt_token }}"
+
 ## Tailscale
 - name: Run Tailscale Role
   hosts: tailscale

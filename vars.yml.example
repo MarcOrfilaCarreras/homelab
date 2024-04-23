@@ -45,3 +45,6 @@ twitch_channel_points_miner_v2_channels:
 
 amule: true
 registry: true
+
+vikunja: true
+vikunja_jwt_token: "your_token"

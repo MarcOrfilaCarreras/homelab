@@ -43,3 +43,7 @@ https://amule.{{ caddy_domain }} {
 https://registry.{{ caddy_domain }} {
         reverse_proxy 127.0.0.1:9008
 }
+
+https://vikunja.{{ caddy_domain }} {
+        reverse_proxy 127.0.0.1:9009
+}
