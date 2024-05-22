@@ -1,0 +1,25 @@
+---
+- name: Creates Data directory
+  ansible.builtin.file:
+    path: /opt/docker/goatcounter/db
+    state: directory
+
+- name: Deploy GoatCounter
+  community.docker.docker_container:
+    name: goatcounter
+    recreate: yes
+    image: marcorfilacarreras/goatcounter:latest
+    ports:
+      - "127.0.0.1:9010:5000"
+    volumes:
+      - /opt/docker/goatcounter/db:/app/db
+    env:
+      GOATCOUNTER_DOMAIN: "{{ goatcounter_domain }}"
+      GOATCOUNTER_EMAIL: "{{ goatcounter_email }}"
+      GOATCOUNTER_PASSWORD: "{{ goatcounter_password }}"
+    labels:
+      flame.type: "application"
+      flame.name: "GoatCounter"
+      flame.url: "https://goatcounter.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
+    restart_policy: always

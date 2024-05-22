@@ -48,3 +48,8 @@ registry: true
 
 vikunja: true
 vikunja_jwt_token: "your_token"
+
+goatcounter: true
+goatcounter_domain: "your_domain"
+goatcounter_email: "your_email"
+goatcounter_password: "your_password"

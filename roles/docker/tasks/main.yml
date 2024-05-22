@@ -50,3 +50,7 @@
 - name: Deploy Vikunja
   ansible.builtin.include_tasks: vikunja.yml
   when: vikunja | default(False)
+
+- name: Deploy GoatCounter
+  ansible.builtin.include_tasks: goatcounter.yml
+  when: goatcounter | default(False)

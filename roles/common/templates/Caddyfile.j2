@@ -47,3 +47,7 @@ https://registry.{{ caddy_domain }} {
 https://vikunja.{{ caddy_domain }} {
         reverse_proxy 127.0.0.1:9009
 }
+
+https://goatcounter.{{ caddy_domain }} {
+        reverse_proxy 127.0.0.1:9010
+}

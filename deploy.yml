@@ -65,6 +65,11 @@
         vikunja: "{{ vikunja }}"
         vikunja_jwt_token: "{{ vikunja_jwt_token }}"
 
+        goatcounter: "{{ goatcounter }}"
+        goatcounter_domain: "{{ goatcounter_domain }}"
+        goatcounter_email: "{{ goatcounter_email }}"
+        goatcounter_password: "{{ goatcounter_password }}"
+
 ## Tailscale
 - name: Run Tailscale Role
   hosts: tailscale
