@@ -69,6 +69,7 @@
         goatcounter_domain: "{{ goatcounter_domain }}"
         goatcounter_email: "{{ goatcounter_email }}"
         goatcounter_password: "{{ goatcounter_password }}"
+        goatcounter_cloudflared_token: "{{ goatcounter_cloudflared_token }}"
 
 ## Tailscale
 - name: Run Tailscale Role

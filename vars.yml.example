@@ -53,3 +53,4 @@ goatcounter: true
 goatcounter_domain: "your_domain"
 goatcounter_email: "your_email"
 goatcounter_password: "your_password"
+goatcounter_cloudflared_token: "your_token"

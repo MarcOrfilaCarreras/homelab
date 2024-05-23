@@ -9,8 +9,6 @@
     name: goatcounter
     recreate: yes
     image: marcorfilacarreras/goatcounter:latest
-    ports:
-      - "127.0.0.1:9010:5000"
     volumes:
       - /opt/docker/goatcounter/db:/app/db
     env:
@@ -21,5 +19,17 @@
       flame.type: "application"
       flame.name: "GoatCounter"
       flame.url: "https://goatcounter.{{ caddy_domain }}"
+      com.centurylinklabs.watchtower.enable: "true"
+    restart_policy: always
+
+- name: Deploy Cloudflared
+  community.docker.docker_container:
+    name: goatcounter_cloudflared
+    recreate: yes
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token {{ goatcounter_cloudflared_token }}
+    links:
+      - goatcounter:goatcounter
+    labels:
       com.centurylinklabs.watchtower.enable: "true"
     restart_policy: always
