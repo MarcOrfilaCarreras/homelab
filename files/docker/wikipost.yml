@@ -1,0 +1,30 @@
+---
+version: '3'
+
+services:
+    wikipost-api:
+        image: ghcr.io/marcorfilacarreras/wikipost-api:latest
+        container_name: wikipost-api
+        ports:
+            - 127.0.0.1:7000:8080
+        volumes:
+            - ./app.log:/app/app.log
+            - ./db.sqlite:/app/db.sqlite
+        env_file:
+            - .env
+        restart: unless-stopped
+
+    wikipost-web:
+        image: ghcr.io/marcorfilacarreras/wikipost-web:latest
+        container_name: wikipost-web
+        ports:
+            - 127.0.0.1:7001:80
+        restart: unless-stopped
+
+    wikipost-redis:
+        image: redis:latest
+        container_name: wikipost-redis
+        volumes:
+            - ./redis:/data
+        command: bash -c "redis-server --appendonly yes"
+        restart: unless-stopped

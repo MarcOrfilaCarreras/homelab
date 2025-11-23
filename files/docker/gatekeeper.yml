@@ -1,0 +1,15 @@
+---
+version: '3'
+
+services:
+    gatekeeper:
+        image: ghcr.io/marcorfilacarreras/gatekeeper:latest
+        container_name: gatekeeper
+        ports:
+            - 127.0.0.1:5000:80
+        volumes:
+            - ./app.log:/app/app.log
+            - ./db.sqlite:/app/db.sqlite
+        env_file:
+            - .env
+        restart: unless-stopped
