@@ -125,11 +125,6 @@ acquire_compose_files() {
 deploy_stacks() {
     local source_dir="${TEMP_DIR}/files/docker"
 
-    if ! find "$source_dir" -maxdepth 1 -type f -exec true \; -quit 2>/dev/null; then
-        log "WARN" "No Docker Compose files found to deploy."
-        return 0
-    fi
-
     if ! mkdir -p "$DEPLOY_BASE_DIR"; then
         log "ERROR" "Failed to create deployment base: $DEPLOY_BASE_DIR"
         return 1

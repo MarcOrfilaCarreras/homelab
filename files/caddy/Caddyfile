@@ -1,0 +1,5 @@
+{
+	acme_ca https://acme-v02.api.letsencrypt.org/directory
+	email your-email@example.com
+	acme_dns cloudflare your-cloudflare-token
+}

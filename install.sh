@@ -107,6 +107,7 @@ check_root() {
 show_menu() {
     clear
     echo "$BANNER"
+    echo
     echo " Select system type:"
     echo
     echo -e "   [${GREEN}1${RESET}]  Server"

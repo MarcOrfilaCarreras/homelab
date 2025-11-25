@@ -182,6 +182,27 @@ main() {
             ;;
     esac
 
+    # 6. Apps Installation Prompt
+    echo
+    read -rp "Do you want to install other apps? (y/n, default: n): " configure_apps_input
+    local configure_apps="${configure_apps_input:-n}"
+
+    local module_to_run="modules/apps"
+
+    case "${configure_apps,,}" in
+        y|yes)
+            run_module "$module_to_run"
+            ;;
+        n|no|"")
+            echo
+            log "INFO" "Skipping apps configuration."
+            ;;
+        *)
+            echo
+            log "WARN" "Invalid input ('${configure_apps}'). Skipping **${module_to_run}**."
+            ;;
+    esac
+
     echo
     log "" "✨ Setup complete! Please reboot your system."
 }

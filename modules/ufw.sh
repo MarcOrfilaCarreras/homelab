@@ -68,11 +68,10 @@ main() {
     SSH_PORT=$(awk '$1 == "Port" { print $2 }' /etc/ssh/sshd_config 2>/dev/null | head -n1)
     SSH_PORT=${SSH_PORT:-22}
 
-    # If no custom port is found, use 22
-    SSH_PORT=${SSH_PORT:-22}
-
     ufw logging on > /dev/null 2>&1
     ufw allow ${SSH_PORT} comment "Configured by modules/ufw.sh for SSH" > /dev/null 2>&1
+    ufw allow 80 comment "Configured by modules/ufw.sh for SSH" > /dev/null 2>&1
+    ufw allow 443 comment "Configured by modules/ufw.sh for SSH" > /dev/null 2>&1
     ufw default deny incoming > /dev/null 2>&1
     ufw default allow outgoing > /dev/null 2>&1
 
